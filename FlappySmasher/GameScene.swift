@@ -26,8 +26,8 @@ class GameScene: SKScene{
     var reportTaps = false
 
     //Array
-    var swordsArray = [SKSpriteNode?](count: 0, repeatedValue: nil)
-    var birdArray = [SKSpriteNode?](count: 0, repeatedValue: nil)
+    var swordsArray = [SKSpriteNode?](repeating: nil, count: 0)
+    var birdArray = [SKSpriteNode?](repeating: nil, count: 0)
     
     //Sprites
     var charc = SKSpriteNode()
@@ -36,11 +36,11 @@ class GameScene: SKScene{
     var backgroundImage = SKSpriteNode()
     
     //Actions
-    var moveUp = SKAction.moveByX(0, y: 120, duration: 0.3)
-    var moveDown = SKAction.moveByX(0, y: -120, duration: 0.3)
+    var moveUp = SKAction.moveBy(x: 0, y: 120, duration: 0.3)
+    var moveDown = SKAction.moveBy(x: 0, y: -120, duration: 0.3)
     
     //When the view loads
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
         /* Setup your scene here */
         
         //Debug Information
@@ -48,12 +48,12 @@ class GameScene: SKScene{
         print(self.size.width)
         print(self.size.height)
         print("Screen Dimensions")
-        print(UIScreen.mainScreen().bounds.width * 2)
-        print(UIScreen.mainScreen().bounds.height * 2)
+        print(UIScreen.main.bounds.width * 2)
+        print(UIScreen.main.bounds.height * 2)
         
         //Matching Dimensions
-        self.size.width = UIScreen.mainScreen().bounds.width * 2
-        self.size.height = UIScreen.mainScreen().bounds.height * 2
+        self.size.width = UIScreen.main.bounds.width * 2
+        self.size.height = UIScreen.main.bounds.height * 2
         
         //   ---Graphics Initialization---
         //Background Image
@@ -71,17 +71,17 @@ class GameScene: SKScene{
         charc.name = "Bro"
         charc.position = CGPoint(x: self.frame.size.width/10,y: self.frame.size.height/2)
         charc.zPosition = 1
-        charc.physicsBody = SKPhysicsBody(rectangleOfSize: charc.size)
+        charc.physicsBody = SKPhysicsBody(rectangleOf: charc.size)
         charc.xScale = 0.8
         charc.yScale = 0.8
         charc.zPosition = 20
         self.addChild(charc)
         
         //Shoot Button
-        self.shootButton.path = UIBezierPath(roundedRect: CGRect(x: -125, y: -50, width: 250, height: 100), cornerRadius: 32).CGPath
+        self.shootButton.path = UIBezierPath(roundedRect: CGRect(x: -125, y: -50, width: 250, height: 100), cornerRadius: 32).cgPath
         self.shootButton.position = CGPoint(x: self.size.width * 13/16,y: self.size.height * 1/4)
         self.shootButton.zPosition = 2
-        self.shootButton.fillColor = UIColor.whiteColor()
+        self.shootButton.fillColor = UIColor.white
         self.shootButton.name = "Fire!"
         self.addChild(shootButton)
         
@@ -90,43 +90,43 @@ class GameScene: SKScene{
         self.fireLabel.position = CGPoint(x: 0,y: -10)
         self.fireLabel.zPosition = 0
         self.fireLabel.fontSize = 40
-        self.fireLabel.fontColor = UIColor.redColor()
+        self.fireLabel.fontColor = UIColor.red
         self.fireLabel.fontName = "System"
         shootButton.addChild(fireLabel)
         
         //   ---Sound Effects Setup---
         //Punch sound
         //Sword Sound
-        let punchSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("punch", ofType: "wav")!)
-        punchSoundEffect = try! AVAudioPlayer.init(contentsOfURL: punchSound)
+        let punchSound = URL(fileURLWithPath: Bundle.main.path(forResource: "punch", ofType: "wav")!)
+        punchSoundEffect = try! AVAudioPlayer.init(contentsOf: punchSound)
         punchSoundEffect.prepareToPlay()
         punchSoundEffect.numberOfLoops = 0
         
         //Screen Boarder
-        self.physicsBody = SKPhysicsBody(edgeLoopFromRect: CGRect(x: 0,y: 0, width: self.frame.size.width,height: self.frame.size.height))
+        self.physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(x: 0,y: 0, width: self.frame.size.width,height: self.frame.size.height))
         self.physicsWorld.gravity = CGVector(dx: 0,dy: 0)
         
     }
     
     //When the screen is tapped    //Used to report tapped coordinates
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
        /* Called when a touch begins */
         
         for touch in touches {
             if reportTaps {
-                print("Tap Location" + String(touch.locationInNode(self)))
+                print("Tap Location" + String(describing: touch.location(in: self)))
             
             }
         }
     }
     
     //When screen tapped is lifted    //Triggers moveCharc and fireSwords
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?){
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
         buttonTapped = false
         
         for touch in touches{
             
-            for i in self.nodesAtPoint(touch.locationInNode(self)) {
+            for i in self.nodes(at: touch.location(in: self)) {
                 if i.name == "Fire!" {
                     buttonTapped = true
                     fireSwords(charcLocation: self.charc.position)
@@ -138,16 +138,16 @@ class GameScene: SKScene{
     
     //Move the charc
     func moveCharc(UserInput touch : UITouch){
-        if(touch.locationInNode(self).y > self.frame.size.height/2){
+        if(touch.location(in: self).y > self.frame.size.height/2){
             if(!buttonTapped){
                 if !(self.charc.position.y + self.charc.size.height/2 >= self.size.height){
-                    self.charc.runAction(self.moveUp)
+                    self.charc.run(self.moveUp)
                 }
             }
-        } else if(touch.locationInNode(self).y <= self.frame.size.height/2){
+        } else if(touch.location(in: self).y <= self.frame.size.height/2){
             if(!buttonTapped){
                 if !(self.charc.position.y - self.charc.size.height/2 <= 0){
-                    self.charc.runAction(self.moveDown)
+                    self.charc.run(self.moveDown)
                 }
             }
         } else {
@@ -166,17 +166,17 @@ class GameScene: SKScene{
         aSword.yScale = 0.5
         swordsArray.append(aSword)
         
-        let moveSword = SKAction.repeatAction(SKAction.moveByX(swordSpeed, y: 0, duration: swordUpdateTime), count: Int(self.size.width/swordSpeed))
+        let moveSword = SKAction.repeat(SKAction.moveBy(x: swordSpeed, y: 0, duration: swordUpdateTime), count: Int(self.size.width/swordSpeed))
         let swordSequence = SKAction.sequence([moveSword,SKAction.removeFromParent()])
-        aSword.runAction(swordSequence, completion: {self.removeFirstSwordFromArray()})
+        aSword.run(swordSequence, completion: {self.removeFirstSwordFromArray()})
         self.addChild(aSword)
         
     }
    
     //Updates before each frame renders    //Used to add birds and detect collision
-    override func update(currentTime: CFTimeInterval) {
+    override func update(_ currentTime: TimeInterval) {
         //The array for  birds that were hit
-        var birdRemovalArray = [Int?](count: 0,repeatedValue: nil)
+        var birdRemovalArray = [Int?](repeating: nil,count: 0)
 
         //Collision Check
         if (birdArray.count >= 1 && swordsArray.count >= 1) {
@@ -186,7 +186,7 @@ class GameScene: SKScene{
                 let selectedSword = swordsArray[j]
                 
                 if ((!(selectedBird == nil) && !(selectedSword == nil)) && (!(swordsArray.count == 0) && !(birdArray.count == 0))) {
-                    if ((selectedBird?.intersectsNode(selectedSword!))! == true) {
+                    if ((selectedBird?.intersects(selectedSword!))! == true) {
                     
                         punchSoundEffect.play()
                         
@@ -224,8 +224,8 @@ class GameScene: SKScene{
             let theSecondBirdSkin = SKTexture(imageNamed: "flappy2left.png")
             let aBird = SKSpriteNode(texture: theFirstBirdSkin)
             
-            let birdFlapWings = SKAction.repeatActionForever(SKAction.animateWithTextures([theFirstBirdSkin,theSecondBirdSkin], timePerFrame: 0.1))
-            let moveTheBird = SKAction.repeatAction(SKAction.moveByX(-1 * CGFloat(birdSpeed), y: 0, duration: 0.2), count: (Int(self.size.width + aBird.size.width * 2))/birdSpeed)
+            let birdFlapWings = SKAction.repeatForever(SKAction.animate(with: [theFirstBirdSkin,theSecondBirdSkin], timePerFrame: 0.1))
+            let moveTheBird = SKAction.repeat(SKAction.moveBy(x: -1 * CGFloat(birdSpeed), y: 0, duration: 0.2), count: (Int(self.size.width + aBird.size.width * 2))/birdSpeed)
             let birdSequence = SKAction.sequence([moveTheBird,SKAction.removeFromParent()])
             
             let randomBirdPosY = arc4random() % UInt32(self.size.height * 7/8)
@@ -234,8 +234,8 @@ class GameScene: SKScene{
             birdArray.append(aBird)
             print("Bird array length:" + String(birdArray.count))
             
-            aBird.runAction(birdFlapWings)
-            aBird.runAction(birdSequence, completion: {self.removeFirstBirdFromArray()})
+            aBird.run(birdFlapWings)
+            aBird.run(birdSequence, completion: {self.removeFirstBirdFromArray()})
         
             self.addChild(aBird)
         }
@@ -243,30 +243,30 @@ class GameScene: SKScene{
     
     //Remove first bird
     func removeFirstBirdFromArray() -> Void {
-        birdArray.removeAtIndex(0)
+        birdArray.remove(at: 0)
     }
     
     //Remove first sword
     func removeFirstSwordFromArray() -> Void {
-        swordsArray.removeAtIndex(0)
+        swordsArray.remove(at: 0)
     }
     
     //Kill the bird that was hit
     func KillSelectedBirdFromArray(selectedBirdIndex Index: Int) -> Void {
         print("Bird array length before remove:" + String(birdArray.count))
         print("Selected bird index:" + String(Index))
-        let birdFall = SKAction.repeatAction(SKAction.moveByX(0, y: CGFloat(-2 * birdSpeed), duration: 0.1), count: (Int((1.2 * (birdArray[Index]?.position.y)!))/(2 * birdSpeed)))
+        let birdFall = SKAction.repeat(SKAction.moveBy(x: 0, y: CGFloat(-2 * birdSpeed), duration: 0.1), count: (Int((1.2 * (birdArray[Index]?.position.y)!))/(2 * birdSpeed)))
         let birdDeathSequence = SKAction.sequence([birdFall,SKAction.removeFromParent()])
         
-        self.birdArray[Index]?.runAction(birdDeathSequence)
-        self.birdArray.removeAtIndex(Index)
+        self.birdArray[Index]?.run(birdDeathSequence)
+        self.birdArray.remove(at: Index)
         
         print("Bird array length after remove:" + String(birdArray.count))
     }
     
     //Sword Nerfing (Not yet used) -!-
     func swordCollision(theSword targetSword: SKSpriteNode) -> Void {
-        targetSword.runAction(SKAction.removeFromParent())
+        targetSword.run(SKAction.removeFromParent())
     }
     
 }
