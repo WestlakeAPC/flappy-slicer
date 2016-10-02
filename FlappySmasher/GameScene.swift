@@ -11,7 +11,7 @@ import AVFoundation
 
 class GameScene: SKScene {
 
-    //MARK: Game Control
+    // MARK: Game Control
     var birdSpeed = 60
     var birdControl: Int = 101
     
@@ -32,7 +32,7 @@ class GameScene: SKScene {
     // MARK: Sprites
     var charc: SKSpriteNode?
     var fireLabel: SKLabelNode?
-    var shootButton: SKShapeNode?
+    var shootButton: SKSpriteNode?
     var backgroundImage: SKSpriteNode?
 
     // MARK: Actions
@@ -56,7 +56,7 @@ class GameScene: SKScene {
         // Aggregate sprites.
         self.backgroundImage = self.childNode(withName: "backgroundImage") as? SKSpriteNode
         self.charc = self.backgroundImage?.childNode(withName: "Bro") as? SKSpriteNode
-        self.shootButton = self.backgroundImage?.childNode(withName: "shootButton") as? SKShapeNode
+        self.shootButton = self.backgroundImage?.childNode(withName: "shootButton") as? SKSpriteNode
         self.fireLabel = self.shootButton?.childNode(withName: "fireLabel") as? SKLabelNode
 
         // Punch sound
@@ -193,6 +193,7 @@ class GameScene: SKScene {
 
             aBird.run(birdFlapWings)
             aBird.run(birdSequence, completion: { self.removeFirstBirdFromArray() })
+            aBird.run(SKAction.scale(to: 0.1, duration: 1.5))
 
             self.addChild(aBird)
         }
