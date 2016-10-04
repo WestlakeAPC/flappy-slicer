@@ -39,7 +39,7 @@ class GameScene: SKScene {
     var moveUp = SKAction.moveBy(x: 0, y: 120, duration: 0.3)
     var moveDown = SKAction.moveBy(x: 0, y: -120, duration: 0.3)
 
-    // When the view loads
+    // MARK: When the view loads
     override func didMove(to view:SKView) {
         // Debug information
         print("Scene Dimensions")
@@ -84,7 +84,7 @@ class GameScene: SKScene {
 
     }
 
-    //When the screen is tapped    //Used to report tapped coordinates
+    // MARK: When the screen is tapped
     override func touchesBegan(_ touches:Set<UITouch>, with event:UIEvent?) {
         /* Called when a touch begins */
 
@@ -129,7 +129,7 @@ class GameScene: SKScene {
         }
     }
 
-    // MARK: Fire Swords
+    // MARK: Fire swords
     func fireSwords(charcLocation charcPos:CGPoint) {
         let theSwordLook = SKTexture(imageNamed: "the_other_sword.png")
         let aSword = SKSpriteNode(texture: theSwordLook)
@@ -176,7 +176,7 @@ class GameScene: SKScene {
             }
         }
 
-        //Remove birds from array
+        // Remove birds from array
         if !(birdRemovalArray.count == 0) {
             for k in 0 ... birdRemovalArray.count - 1 {
                 //print("Inside for loop.")
@@ -186,7 +186,7 @@ class GameScene: SKScene {
             }
         }
 
-        //Send Birds
+        // Send Birds
         let NewBird = Int(arc4random() % 100)
         if (NewBird <= birdControl) {
 
