@@ -108,12 +108,12 @@ class GameScene: SKScene {
                     fireSwords(charcLocation: (self.charc?.position)!)
                 }
             }
-            moveCharc(UserInput: touch)
+            moveCharc(touch)
         }
     }
 
     // MARK: Move character
-    func moveCharc(UserInput touch :UITouch) {
+    func moveCharc(_ touch :UITouch) {
         if (touch.location(in: self).y > self.frame.size.height / 2) {
             if (!buttonTapped) {
                 if !((self.charc?.position.y)! + (self.charc?.size.height)! / 2 >= self.size.height) {
@@ -128,7 +128,8 @@ class GameScene: SKScene {
             }
         }
     }
-
+    
+    
     // MARK: Fire swords
     func fireSwords(charcLocation charcPos:CGPoint) {
         let theSwordLook = SKTexture(imageNamed: "the_other_sword.png")
