@@ -55,9 +55,22 @@ class GameScene: SKScene {
         
         // Aggregate sprites.
         self.backgroundImage = self.childNode(withName: "backgroundImage") as? SKSpriteNode
+        let backgroundPhoto = SKTexture(imageNamed: "backgroundphoto.png")
+        backgroundImage = SKSpriteNode(texture: backgroundPhoto)
+        backgroundImage?.size.height = self.size.height
+        backgroundImage?.size.width = self.size.height * 900 / 504
+        backgroundImage?.position = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
+        backgroundImage?.zPosition = -5
+        self.addChild(backgroundImage!)
+        
         self.charc = self.backgroundImage?.childNode(withName: "Bro") as? SKSpriteNode
+        
+        
         self.shootButton = self.backgroundImage?.childNode(withName: "shootButton") as? SKSpriteNode
+        
+        
         self.fireLabel = self.shootButton?.childNode(withName: "fireLabel") as? SKLabelNode
+        
 
         // Punch sound
         let punchSound = URL(fileURLWithPath: Bundle.main.path(forResource: "punch", ofType: "wav")!)
