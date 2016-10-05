@@ -91,13 +91,13 @@ class GameScene: SKScene {
         buttonTapped = false
 
         for touch in touches {
-
             for i in self.nodes(at: touch.location(in: backgroundImage!)) {
                 if i == shootButton {
                     buttonTapped = true
                     fireSwords(charcLocation: (self.charc?.position)!)
                 }
             }
+            
             moveCharc(touch)
         }
     }
@@ -166,7 +166,6 @@ class GameScene: SKScene {
         // Remove birds from array
         if !(birdRemovalArray.count == 0) {
             for k in 0 ... birdRemovalArray.count - 1 {
-                //print("Inside for loop.")
                 if !(birdRemovalArray[birdRemovalArray.count - k - 1] == nil) {
                     killSelectedBirdFromArray(selectedBirdIndex: birdRemovalArray[birdRemovalArray.count - k - 1]!)
                 }
