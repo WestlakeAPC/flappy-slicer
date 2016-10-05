@@ -229,7 +229,7 @@ class GameScene: SKScene {
             aBird.yScale = 0.125
 
             let birdFlapWings = SKAction.repeatForever(SKAction.animate(with: [theFirstBirdSkin, theSecondBirdSkin], timePerFrame: 0.1))
-            let moveTheBird = SKAction.repeat(SKAction.moveBy(x: -1 * CGFloat(birdSpeed), y: 0, duration: 0.2), count: (Int(self.size.width + aBird.size.width * 2)) / birdSpeed)
+            let moveTheBird = SKAction.repeat(SKAction.moveBy(x: -1 * CGFloat(birdSpeed), y: 0, duration: 0.2), count: (Int(self.size.width + aBird.size.width * 5)) / birdSpeed)
             let birdSequence = SKAction.sequence([moveTheBird, SKAction.removeFromParent()])
 
             let randomBirdPosY = arc4random() % UInt32(self.size.height * 7 / 8)
@@ -259,7 +259,7 @@ class GameScene: SKScene {
     func KillSelectedBirdFromArray(selectedBirdIndex Index:Int) -> Void {
         print("Bird array length before remove:" + String(birdArray.count))
         print("Selected bird index:" + String(Index))
-        let birdFall = SKAction.repeat(SKAction.moveBy(x: 0, y: CGFloat(-2 * birdSpeed), duration: 0.1), count: (Int((1.2 * (birdArray[Index]?.position.y)!)) / (2 * birdSpeed)))
+        let birdFall = SKAction.repeat(SKAction.moveBy(x: 0, y: CGFloat(-3 * birdSpeed), duration: 0.1), count: (Int((1.2 * (birdArray[Index]?.position.y)!)) / (2 * birdSpeed)))
         let birdDeathSequence = SKAction.sequence([birdFall, SKAction.removeFromParent()])
 
         self.birdArray[Index]?.run(birdDeathSequence)
