@@ -40,7 +40,7 @@ class GameScene: SKScene {
     var moveDown = SKAction.moveBy(x: 0, y: -120, duration: 0.3)
 
     // MARK: When the view loads
-    override func didMove(to view:SKView) {
+    override func didMove(to view: SKView) {
         // Debug information
         print("Scene Dimensions")
         print(self.size.width)
@@ -54,30 +54,15 @@ class GameScene: SKScene {
         self.size.height = UIScreen.main.bounds.height * 2
         
         // Aggregate sprites.
-        self.backgroundImage = self.childNode(withName: "backgroundImage") as? SKSpriteNode
-        let backgroundPhoto = SKTexture(imageNamed: "backgroundphoto.png")
-        backgroundImage = SKSpriteNode(texture: backgroundPhoto)
+        self.backgroundImage = self.childNode(withName: "//backgroundImage") as? SKSpriteNode
         backgroundImage?.size.height = self.size.height
         backgroundImage?.size.width = self.size.height * 900 / 504
         backgroundImage?.position = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
-        backgroundImage?.zPosition = -5
-        self.addChild(backgroundImage!)
         
-        self.charc = self.childNode(withName: "Bro") as? SKSpriteNode
-        charc?.name = "Bro"
-        charc?.position = CGPoint(x: self.frame.size.width / 10, y: self.frame.size.height / 2)
-        charc?.zPosition = 1
-        charc?.physicsBody = SKPhysicsBody(rectangleOf: (charc?.size)!)
-        charc?.xScale = 0.8
-        charc?.yScale = 0.8
-        charc?.zPosition = 20
+        self.charc = backgroundImage?.childNode(withName: "//Bro") as? SKSpriteNode
+        self.shootButton = self.backgroundImage?.childNode(withName: "//shootButton") as? SKSpriteNode
+        self.fireLabel = self.shootButton?.childNode(withName: "//fireLabel") as? SKLabelNode
         
-        self.shootButton = self.backgroundImage?.childNode(withName: "shootButton") as? SKSpriteNode
-        
-        
-        self.fireLabel = self.shootButton?.childNode(withName: "fireLabel") as? SKLabelNode
-        
-
         // Punch sound
         let punchSound = URL(fileURLWithPath: Bundle.main.path(forResource: "punch", ofType: "wav")!)
         punchSoundEffect = try! AVAudioPlayer.init(contentsOf: punchSound)
@@ -87,7 +72,6 @@ class GameScene: SKScene {
         //Screen Boarder
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
         self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
-
     }
 
     // MARK: When the screen is tapped
@@ -103,13 +87,13 @@ class GameScene: SKScene {
     }
 
     // MARK: Triggers moveCharc and fireSwords
-    override func touchesEnded(_ touches:Set<UITouch>, with event:UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         buttonTapped = false
 
         for touch in touches {
 
-            for i in self.nodes(at: touch.location(in: self)) {
-                if i.name == "Fire!" {
+            for i in self.nodes(at: touch.location(in: backgroundImage!)) {
+                if i == shootButton {
                     buttonTapped = true
                     fireSwords(charcLocation: (self.charc?.position)!)
                 }
@@ -119,25 +103,21 @@ class GameScene: SKScene {
     }
 
     // MARK: Move character
-    func moveCharc(_ touch :UITouch) {
+    func moveCharc(_ touch: UITouch) {
         if (touch.location(in: self).y > self.frame.size.height / 2) {
             if (!buttonTapped) {
-                if !((self.charc?.position.y)! + (self.charc?.size.height)! / 2 >= self.size.height) {
-                    self.charc?.run(self.moveUp)
-                }
+                self.charc?.run(self.moveUp)
             }
         } else if (touch.location(in: self).y <= self.frame.size.height / 2) {
             if (!buttonTapped) {
-                if !((self.charc?.position.y)! - (self.charc?.size.height)! / 2 <= 0) {
-                    self.charc?.run(self.moveDown)
-                }
+                self.charc?.run(self.moveDown)
             }
         }
     }
     
     
     // MARK: Fire swords
-    func fireSwords(charcLocation charcPos:CGPoint) {
+    func fireSwords(charcLocation charcPos: CGPoint) {
         let theSwordLook = SKTexture(imageNamed: "the_other_sword.png")
         let aSword = SKSpriteNode(texture: theSwordLook)
         aSword.position = CGPoint(x: charcPos.x + 40, y: charcPos.y - 25)
@@ -153,7 +133,7 @@ class GameScene: SKScene {
     }
 
     // MARK: Used to add birds and detect collision
-    override func update(_ currentTime:TimeInterval) {
+    override func update(_ currentTime: TimeInterval) {
         // The array for  birds that were hit
         var birdRemovalArray = [Int?](repeating: nil, count: 0)
 
@@ -230,8 +210,9 @@ class GameScene: SKScene {
     }
 
     // MARK: Kill the bird that was hit
-    func killSelectedBirdFromArray(selectedBirdIndex Index:Int) -> Void {
-        let birdFall = SKAction.repeat(SKAction.moveBy(x: 0, y: CGFloat(-3 * birdSpeed), duration: 0.1), count: (Int((1.2 * (birdArray[Index]?.position.y)!)) / (2 * birdSpeed)))
+    func killSelectedBirdFromArray(selectedBirdIndex Index: Int) -> Void {
+        let birdFall = SKAction.repeat(SKAction.moveBy(x: 0, y: CGFloat(-3 * birdSpeed), duration: 0.1),
+                                       count: (Int((1.2 * (birdArray[Index]?.position.y)!)) / (2 * birdSpeed)))
         let birdDeathSequence = SKAction.sequence([birdFall, SKAction.removeFromParent()])
 
         self.birdArray[Index]?.run(birdDeathSequence)
@@ -239,7 +220,7 @@ class GameScene: SKScene {
     }
 
     // MARK: Sword nerfing (not yet used)
-    func swordCollision(theSword targetSword:SKSpriteNode) -> Void {
+    func swordCollision(theSword targetSword: SKSpriteNode) -> Void {
         targetSword.run(SKAction.removeFromParent())
     }
 
