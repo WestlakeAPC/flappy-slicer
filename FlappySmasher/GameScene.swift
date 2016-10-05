@@ -63,8 +63,14 @@ class GameScene: SKScene {
         backgroundImage?.zPosition = -5
         self.addChild(backgroundImage!)
         
-        self.charc = self.backgroundImage?.childNode(withName: "Bro") as? SKSpriteNode
-        
+        self.charc = self.childNode(withName: "Bro") as? SKSpriteNode
+        charc?.name = "Bro"
+        charc?.position = CGPoint(x: self.frame.size.width / 10, y: self.frame.size.height / 2)
+        charc?.zPosition = 1
+        charc?.physicsBody = SKPhysicsBody(rectangleOf: (charc?.size)!)
+        charc?.xScale = 0.8
+        charc?.yScale = 0.8
+        charc?.zPosition = 20
         
         self.shootButton = self.backgroundImage?.childNode(withName: "shootButton") as? SKSpriteNode
         
