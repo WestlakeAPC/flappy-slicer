@@ -69,7 +69,7 @@ class GameScene: SKScene {
         punchSoundEffect.prepareToPlay()
         punchSoundEffect.numberOfLoops = 0
 
-        //Screen Boarder
+        // Screen Border
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
         self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
     }
@@ -91,8 +91,8 @@ class GameScene: SKScene {
         buttonTapped = false
 
         for touch in touches {
-            for i in self.nodes(at: touch.location(in: backgroundImage!)) {
-                if i == shootButton {
+            for i in self.nodes(at: touch.location(in: self)) {
+                if i.name == "shootButton" {
                     buttonTapped = true
                     fireSwords(charcLocation: (self.charc?.position)!)
                 }
@@ -120,7 +120,7 @@ class GameScene: SKScene {
     func fireSwords(charcLocation charcPos: CGPoint) {
         let theSwordLook = SKTexture(imageNamed: "the_other_sword.png")
         let aSword = SKSpriteNode(texture: theSwordLook)
-        aSword.position = CGPoint(x: charcPos.x + 40, y: charcPos.y - 25)
+        aSword.position = CGPoint(x: charcPos.x + 40, y: charcPos.y - (charc?.size.height)!/2)
         aSword.zPosition = 3
         aSword.xScale = 0.5
         aSword.yScale = 0.5
@@ -129,7 +129,7 @@ class GameScene: SKScene {
         let moveSword = SKAction.repeat(SKAction.moveBy(x: swordSpeed, y: 0, duration: swordUpdateTime), count: Int(self.size.width / swordSpeed))
         let swordSequence = SKAction.sequence([moveSword, SKAction.removeFromParent()])
         aSword.run(swordSequence, completion: { self.removeFirstSwordFromArray() })
-        self.addChild(aSword)
+        backgroundImage?.addChild(aSword)
     }
 
     // MARK: Used to add birds and detect collision
