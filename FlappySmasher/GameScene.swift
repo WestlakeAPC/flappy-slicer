@@ -15,7 +15,7 @@ class GameScene: SKScene {
     var birdSpeed = 60
     var birdControl: Int = 101
     
-    var swordSpeed: CGFloat = 80
+    var swordSpeed: CGFloat = 120
     var swordUpdateTime = 0.1
 
     // MARK: Sounds
@@ -120,7 +120,7 @@ class GameScene: SKScene {
     func fireSwords(charcLocation charcPos: CGPoint) {
         let theSwordLook = SKTexture(imageNamed: "the_other_sword.png")
         let aSword = SKSpriteNode(texture: theSwordLook)
-        aSword.position = CGPoint(x: charcPos.x + 40, y: charcPos.y - (charc?.size.height)!/2)
+        aSword.position = CGPoint(x: charcPos.x + 60, y: charcPos.y)
         aSword.zPosition = 3
         aSword.xScale = 0.5
         aSword.yScale = 0.5
@@ -128,7 +128,7 @@ class GameScene: SKScene {
 
         let moveSword = SKAction.repeat(SKAction.moveBy(x: swordSpeed, y: 0, duration: swordUpdateTime), count: Int(self.size.width / swordSpeed))
         let swordSequence = SKAction.sequence([moveSword, SKAction.removeFromParent()])
-        aSword.run(swordSequence, completion: { self.removeFirstSwordFromArray() })
+        aSword.run(swordSequence, completion: self.removeFirstSwordFromArray )
         backgroundImage?.addChild(aSword)
     }
 
@@ -191,7 +191,7 @@ class GameScene: SKScene {
             birdArray.append(aBird)
 
             aBird.run(birdFlapWings)
-            aBird.run(birdSequence, completion: { self.removeFirstBirdFromArray() })
+            aBird.run(birdSequence, completion: self.removeFirstBirdFromArray)
             aBird.run(SKAction.scale(to: 0.1, duration: 1.5))
 
             self.addChild(aBird)
