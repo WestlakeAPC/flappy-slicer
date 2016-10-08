@@ -11,7 +11,7 @@ import AVFoundation
 
 class GameScene: SKScene {
 
-    // MARK: Game Control
+    // MARK: Game control
     var birdSpeed = 60
     var birdControl: Int = 101
     
@@ -21,7 +21,7 @@ class GameScene: SKScene {
     // MARK: Sounds
     var punchSoundEffect = AVAudioPlayer()
 
-    // MARK: Variables
+    // MARK: Debug variables
     var buttonTapped = false
     var reportTaps = false
 
@@ -38,8 +38,8 @@ class GameScene: SKScene {
     // MARK: Actions
     var moveUp = SKAction.moveBy(x: 0, y: 120, duration: 0.3)
     var moveDown = SKAction.moveBy(x: 0, y: -120, duration: 0.3)
-
-    // MARK: When the view loads
+    
+    // MARK: When view loads
     override func didMove(to view: SKView) {
         // Debug information
         print("Scene Dimensions")
@@ -94,7 +94,7 @@ class GameScene: SKScene {
             for i in self.nodes(at: touch.location(in: self)) {
                 if i.name == "shootButton" {
                     buttonTapped = true
-                    fireSwords(charcLocation: (self.charc?.position)!)
+                    fireSwords(location: (self.charc?.position)!)
                 }
             }
             
@@ -117,34 +117,34 @@ class GameScene: SKScene {
     
     
     // MARK: Fire swords
-    func fireSwords(charcLocation charcPos: CGPoint) {
-        let theSwordLook = SKTexture(imageNamed: "the_other_sword.png")
-        let aSword = SKSpriteNode(texture: theSwordLook)
-        aSword.position = CGPoint(x: charcPos.x + 60, y: charcPos.y)
-        aSword.zPosition = 3
-        aSword.xScale = 0.5
-        aSword.yScale = 0.5
-        swordsArray.append(aSword)
+    func fireSwords(location charcPos: CGPoint) {
+        let swordTexture = SKTexture(imageNamed: "the_other_sword.png")
+        let sword = SKSpriteNode(texture: swordTexture)
+        sword.position = CGPoint(x: charcPos.x + 60, y: charcPos.y)
+        sword.zPosition = 3
+        sword.xScale = 0.5
+        sword.yScale = 0.5
+        swordsArray.append(sword)
 
         let moveSword = SKAction.repeat(SKAction.moveBy(x: swordSpeed, y: 0, duration: swordUpdateTime), count: Int(self.size.width / swordSpeed))
         let swordSequence = SKAction.sequence([moveSword, SKAction.removeFromParent()])
-        aSword.run(swordSequence, completion: self.removeFirstSwordFromArray )
-        backgroundImage?.addChild(aSword)
+        sword.run(swordSequence, completion: self.removeFirstSwordFromArray )
+        backgroundImage?.addChild(sword)
     }
 
     // MARK: Used to add birds and detect collision
     override func update(_ currentTime: TimeInterval) {
         // The array for  birds that were hit
-        var birdRemovalArray = [Int?](repeating: nil, count: 0)
+        var birdRemovalArray = [Int](repeating: 0, count: 0)
 
-        // Collision Check
+        // Collision check
         if (birdArray.count >= 1 && swordsArray.count >= 1) {
             for i in 0 ..< birdArray.count {
                 for j in 0 ..< swordsArray.count {
-                    if let selectedBird = birdArray[i]{
+                    if let selectedBird = birdArray[i] {
                         if let selectedSword = swordsArray[j] {
-                            if ((!(swordsArray.count == 0) && !(birdArray.count == 0))) {
-                                if ((selectedBird.intersects(selectedSword)) == true) {
+                            if !(swordsArray.count == 0) && !(birdArray.count == 0) {
+                                if selectedBird.intersects(selectedSword) {
                                     punchSoundEffect.play()
 
                                     if (birdRemovalArray.count > 0) {
@@ -165,37 +165,31 @@ class GameScene: SKScene {
 
         // Remove birds from array
         if !(birdRemovalArray.count == 0) {
-            for k in 0 ... birdRemovalArray.count - 1 {
-                if !(birdRemovalArray[birdRemovalArray.count - k - 1] == nil) {
-                    killSelectedBirdFromArray(selectedBirdIndex: birdRemovalArray[birdRemovalArray.count - k - 1]!)
-                }
+            for index in birdRemovalArray {
+                killSelectedBird(atIndex: index)
             }
         }
+        
+        // Send birds
+        let firstBirdSkin = SKTexture(imageNamed: "High Winged Bird.png")
+        let secondBirdSkin = SKTexture(imageNamed: "Low Winged Bird.png")
+        let bird = SKSpriteNode(texture: firstBirdSkin)
+        
+        let flapWings = SKAction.repeatForever(SKAction.animate(with: [firstBirdSkin, secondBirdSkin], timePerFrame: 0.1))
+        let moveBird = SKAction.repeat(SKAction.moveBy(x: -1 * CGFloat(birdSpeed), y: 0, duration: 0.2),
+                                       count: (Int(self.size.width + bird.size.width * 5)) / birdSpeed)
+        let birdSequence = SKAction.sequence([moveBird, SKAction.removeFromParent()])
 
-        // Send Birds
-        let NewBird = Int(arc4random() % 100)
-        if (NewBird <= birdControl) {
+        let randomBirdPosY = arc4random_uniform(UInt32(self.size.height * 7 / 8))
+        bird.position = CGPoint(x: self.size.width + (bird.size.width) * 2, y: CGFloat(randomBirdPosY))
+        bird.zPosition = 4
+        birdArray.append(bird)
 
-            let theFirstBirdSkin = SKTexture(imageNamed: "High Winged Bird.png")
-            let theSecondBirdSkin = SKTexture(imageNamed: "Low Winged Bird.png")
-            let aBird = SKSpriteNode(texture: theFirstBirdSkin)
+        bird.run(flapWings)
+        bird.run(birdSequence, completion: self.removeFirstBirdFromArray)
+        bird.run(SKAction.scale(to: 0.1, duration: 1.5))
 
-            let birdFlapWings = SKAction.repeatForever(SKAction.animate(with: [theFirstBirdSkin, theSecondBirdSkin], timePerFrame: 0.1))
-            let moveTheBird = SKAction.repeat(SKAction.moveBy(x: -1 * CGFloat(birdSpeed), y: 0, duration: 0.2),
-                                              count: (Int(self.size.width + aBird.size.width * 5)) / birdSpeed)
-            let birdSequence = SKAction.sequence([moveTheBird, SKAction.removeFromParent()])
-
-            let randomBirdPosY = arc4random() % UInt32(self.size.height * 7 / 8)
-            aBird.position = CGPoint(x: self.size.width + (aBird.size.width) * 2, y: CGFloat(randomBirdPosY))
-            aBird.zPosition = 4
-            birdArray.append(aBird)
-
-            aBird.run(birdFlapWings)
-            aBird.run(birdSequence, completion: self.removeFirstBirdFromArray)
-            aBird.run(SKAction.scale(to: 0.1, duration: 1.5))
-
-            self.addChild(aBird)
-        }
+        backgroundImage?.addChild(bird)
     }
 
     // MARK: Remove first bird
@@ -209,18 +203,12 @@ class GameScene: SKScene {
     }
 
     // MARK: Kill the bird that was hit
-    func killSelectedBirdFromArray(selectedBirdIndex Index: Int) -> Void {
+    func killSelectedBird(atIndex index: Int) -> Void {
         let birdFall = SKAction.repeat(SKAction.moveBy(x: 0, y: CGFloat(-3 * birdSpeed), duration: 0.1),
-                                       count: (Int((1.2 * (birdArray[Index]?.position.y)!)) / (2 * birdSpeed)))
+                                       count: (Int((1.2 * (birdArray[index]?.position.y)!)) / (2 * birdSpeed)))
         let birdDeathSequence = SKAction.sequence([birdFall, SKAction.removeFromParent()])
 
-        self.birdArray[Index]?.run(birdDeathSequence)
-        self.birdArray.remove(at: Index)
+        self.birdArray[index]?.run(birdDeathSequence)
+        self.birdArray.remove(at: index)
     }
-
-    // MARK: Sword nerfing (not yet used)
-    func swordCollision(theSword targetSword: SKSpriteNode) -> Void {
-        targetSword.run(SKAction.removeFromParent())
-    }
-
 }
