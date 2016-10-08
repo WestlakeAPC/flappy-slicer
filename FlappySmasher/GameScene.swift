@@ -139,23 +139,23 @@ class GameScene: SKScene {
 
         // Collision Check
         if (birdArray.count >= 1 && swordsArray.count >= 1) {
-            for i in 0 ... birdArray.count - 1 {
-                for j in 0 ... swordsArray.count - 1 {
-                    let selectedBird = birdArray[i]
-                    let selectedSword = swordsArray[j]
+            for i in 0 ..< birdArray.count {
+                for j in 0 ..< swordsArray.count {
+                    if let selectedBird = birdArray[i]{
+                        if let selectedSword = swordsArray[j] {
+                            if ((!(swordsArray.count == 0) && !(birdArray.count == 0))) {
+                                if ((selectedBird.intersects(selectedSword)) == true) {
+                                    punchSoundEffect.play()
 
-                    if ((!(selectedBird == nil) && !(selectedSword == nil)) && (!(swordsArray.count == 0) && !(birdArray.count == 0))) {
-                        if ((selectedBird?.intersects(selectedSword!))! == true) {
-
-                            punchSoundEffect.play()
-
-                            if (birdRemovalArray.count > 0) {
-                                // Checks for repeating values
-                                if !(birdRemovalArray[birdRemovalArray.count - 1] == i) {
-                                    birdRemovalArray.append(i)
+                                    if (birdRemovalArray.count > 0) {
+                                        // Checks for repeating values
+                                        if !(birdRemovalArray[birdRemovalArray.count - 1] == i) {
+                                            birdRemovalArray.append(i)
+                                        }
+                                    } else {
+                                        birdRemovalArray.append(i)
+                                    }
                                 }
-                            } else {
-                                birdRemovalArray.append(i)
                             }
                         }
                     }
