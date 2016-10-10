@@ -32,7 +32,7 @@ class GameScene: SKScene {
     // MARK: Sprites
     var charc: SKSpriteNode?
     var fireLabel: SKLabelNode?
-    var shootButton: SKSpriteNode?
+    var shootButton: SKShapeNode?
     var backgroundImage: SKSpriteNode?
 
     // MARK: Actions
@@ -60,7 +60,11 @@ class GameScene: SKScene {
         backgroundImage?.position = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
         
         self.charc = backgroundImage?.childNode(withName: "//Bro") as? SKSpriteNode
-        self.shootButton = self.backgroundImage?.childNode(withName: "//shootButton") as? SKSpriteNode
+        self.shootButton = self.backgroundImage?.childNode(withName: "//shootButton") as? SKShapeNode
+        self.shootButton?.path = UIBezierPath(roundedRect: CGRect(x: -self.shootButton!.frame.size.width/4,
+                                                                  y: -self.shootButton!.frame.size.height/2,
+                                                                  width: self.shootButton!.frame.size.width/2,
+                                                                  height: self.shootButton!.frame.size.height), cornerRadius: 16).cgPath
         self.fireLabel = self.shootButton?.childNode(withName: "//fireLabel") as? SKLabelNode
         
         // Punch sound
