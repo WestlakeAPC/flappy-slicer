@@ -108,11 +108,11 @@ class GameScene: SKScene {
     // MARK: Move character
     func moveCharc(_ touch: UITouch) {
         if (touch.location(in: self).y > self.frame.size.height / 2) {
-            if (!buttonTapped) {
+            if (!buttonTapped) && (backgroundImage?.intersects(self.charc!))! {
                 self.charc?.run(self.moveUp)
             }
         } else if (touch.location(in: self).y <= self.frame.size.height / 2) {
-            if (!buttonTapped) {
+            if (!buttonTapped) && (backgroundImage?.intersects(self.charc!))! {
                 self.charc?.run(self.moveDown)
             }
         }
