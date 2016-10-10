@@ -85,7 +85,6 @@ class GameScene: SKScene {
         for touch in touches {
             if reportTaps {
                 print("Tap Location" + String(describing: touch.location(in: self)))
-
             }
         }
     }
@@ -175,25 +174,27 @@ class GameScene: SKScene {
         }
         
         // Send birds
-        let firstBirdSkin = SKTexture(imageNamed: "High Winged Bird.png")
-        let secondBirdSkin = SKTexture(imageNamed: "Low Winged Bird.png")
-        let bird = SKSpriteNode(texture: firstBirdSkin)
-        
-        let flapWings = SKAction.repeatForever(SKAction.animate(with: [firstBirdSkin, secondBirdSkin], timePerFrame: 0.1))
-        let moveBird = SKAction.repeat(SKAction.moveBy(x: -1 * CGFloat(birdSpeed), y: 0, duration: 0.2),
-                                       count: (Int(self.size.width + bird.size.width * 5)) / birdSpeed)
-        let birdSequence = SKAction.sequence([moveBird, SKAction.removeFromParent()])
+        if let backgroundImage = self.backgroundImage {
+            let firstBirdSkin = SKTexture(imageNamed: "High Winged Bird.png")
+            let secondBirdSkin = SKTexture(imageNamed: "Low Winged Bird.png")
+            let bird = SKSpriteNode(texture: firstBirdSkin)
+            
+            let flapWings = SKAction.repeatForever(SKAction.animate(with: [firstBirdSkin, secondBirdSkin], timePerFrame: 0.1))
+            let moveBird = SKAction.repeat(SKAction.moveBy(x: -1 * CGFloat(birdSpeed), y: 0, duration: 0.2),
+                                           count: (Int(self.size.width + bird.size.width * 5)) / birdSpeed)
+            let birdSequence = SKAction.sequence([moveBird, SKAction.removeFromParent()])
 
-        let randomBirdPosY = arc4random_uniform(UInt32(self.size.height * 7 / 8))
-        bird.position = CGPoint(x: self.size.width + (bird.size.width) * 2, y: CGFloat(randomBirdPosY))
-        bird.zPosition = 4
-        birdArray.append(bird)
+            let randomBirdPosY = backgroundImage.frame.origin.y + CGFloat(arc4random_uniform(UInt32(backgroundImage.frame.height))) - backgroundImage.frame.height/2
+            bird.position = CGPoint(x: (backgroundImage.frame.width) + (bird.frame.width) * 2, y: CGFloat(randomBirdPosY))
+            bird.zPosition = 4
+            birdArray.append(bird)
 
-        bird.run(flapWings)
-        bird.run(birdSequence, completion: self.removeFirstBirdFromArray)
-        bird.run(SKAction.scale(to: 0.1, duration: 1.5))
+            bird.run(flapWings)
+            bird.run(birdSequence, completion: self.removeFirstBirdFromArray)
+            bird.run(SKAction.scale(to: 0.1, duration: 1.5))
 
-        backgroundImage?.addChild(bird)
+            backgroundImage.addChild(bird)
+        }
     }
 
     // MARK: Remove first bird
