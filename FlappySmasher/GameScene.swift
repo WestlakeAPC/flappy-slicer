@@ -17,6 +17,7 @@ class GameScene: SKScene {
     
     var swordSpeed: CGFloat = 120
     var swordUpdateTime = 0.1
+    var gameScore = 0
 
     // MARK: Sounds
     var punchSoundEffect = AVAudioPlayer()
@@ -32,6 +33,7 @@ class GameScene: SKScene {
     // MARK: Sprites
     var charc: SKSpriteNode?
     var fireLabel: SKLabelNode?
+    var scoreLabel: SKLabelNode?
     var shootButton: SKShapeNode?
     var backgroundImage: SKSpriteNode?
 
@@ -73,7 +75,7 @@ class GameScene: SKScene {
         punchSoundEffect.prepareToPlay()
         punchSoundEffect.numberOfLoops = 0
 
-        // Screen Border
+        // Screen border
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
         self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
     }
@@ -215,5 +217,7 @@ class GameScene: SKScene {
 
         self.birdArray[index]?.run(birdDeathSequence)
         self.birdArray.remove(at: index)
+        
+        self.gameScore += 1
     }
 }
