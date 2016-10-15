@@ -18,6 +18,7 @@ class GameScene: SKScene {
 
     var swordSpeed: CGFloat = 80
     var swordUpdateTime = 0.1
+    var gameScore = 0
 
     //Sounds
     var punchSoundEffect = AVAudioPlayer()
@@ -34,6 +35,7 @@ class GameScene: SKScene {
     var charc = SKSpriteNode()
     var fireLabel = SKLabelNode()
     var shootButton = SKShapeNode()
+    var displayScore = SKLabelNode()
     var backgroundImage = SKSpriteNode()
 
     //Actions
@@ -94,6 +96,8 @@ class GameScene: SKScene {
         self.fireLabel.fontColor = UIColor.red
         self.fireLabel.fontName = "System"
         shootButton.addChild(fireLabel)
+        
+        //Add Score Board
 
         //   ---Sound Effects Setup---
         //Punch sound
@@ -266,6 +270,10 @@ class GameScene: SKScene {
         self.birdArray.remove(at: Index)
 
         print("Bird array length after remove:" + String(birdArray.count))
+        
+        //Add score
+        self.gameScore = self.gameScore + 1
+        
     }
 
     //Sword Nerfing (Not yet used) -!-
