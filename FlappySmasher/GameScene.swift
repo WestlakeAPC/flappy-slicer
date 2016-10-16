@@ -112,11 +112,11 @@ class GameScene: SKScene {
     // MARK: Move character
     func moveCharc(_ touch: UITouch) {
         if (touch.location(in: self).y > self.frame.size.height / 2) {
-            if (!buttonTapped) && (backgroundImage?.intersects(self.charc!))! {
+            if (!buttonTapped) {
                 self.charc?.run(self.moveUp)
             }
         } else if (touch.location(in: self).y <= self.frame.size.height / 2) {
-            if (!buttonTapped) && (backgroundImage?.intersects(self.charc!))! {
+            if (!buttonTapped) {
                 self.charc?.run(self.moveDown)
             }
         }
@@ -200,6 +200,14 @@ class GameScene: SKScene {
             bird.run(SKAction.scale(to: 0.1, duration: 1.5))
 
             backgroundImage.addChild(bird)
+        }
+        
+        // Keep character on screen.
+        if (self.charc?.frame.maxY)! >= (view?.frame.height)!/2 {
+            self.charc?.position.y = (self.view?.frame.height)!/2 - (self.charc?.size.height)!/2
+        }
+        if (self.charc?.frame.minY)! <= -1.0 * (view?.frame.height)!/2 {
+            self.charc?.position.y = -(self.view?.frame.height)!/2 + (self.charc?.size.height)!/2
         }
     }
 
