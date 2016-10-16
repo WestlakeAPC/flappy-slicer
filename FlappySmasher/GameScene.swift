@@ -98,6 +98,11 @@ class GameScene: SKScene {
         shootButton.addChild(fireLabel)
         
         //Add Score Board
+        self.displayScore.text = "0"
+        self.displayScore.position = CGPoint(x: self.size.width/2, y: self.size.height - 120)
+        self.displayScore.fontSize = 120
+        
+        self.addChild(self.displayScore)
 
         //   ---Sound Effects Setup---
         //Punch sound
@@ -273,6 +278,7 @@ class GameScene: SKScene {
         
         //Add score
         self.gameScore = self.gameScore + 1
+        self.displayScore.text = String(self.gameScore)
         
     }
 
