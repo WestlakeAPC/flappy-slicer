@@ -13,9 +13,10 @@ class GameScene: SKScene {
 
     //Game Control
     var birdSpeed = 60
+    var additionalSpeedLimit = 30
     var birdControl: Int = 101
     //The percentage of bird spwning
-
+    
     var swordSpeed: CGFloat = 80
     var swordUpdateTime = 0.1
     var gameScore = 0
@@ -238,7 +239,9 @@ class GameScene: SKScene {
             aBird.yScale = 0.125
 
             let birdFlapWings = SKAction.repeatForever(SKAction.animate(with: [theFirstBirdSkin, theSecondBirdSkin], timePerFrame: 0.1))
-            let moveTheBird = SKAction.repeat(SKAction.moveBy(x: -1 * CGFloat(birdSpeed), y: 0, duration: 0.2), count: (Int(self.size.width + aBird.size.width * 5)) / birdSpeed)
+            
+            let additionalBirdSpeed = CGFloat(arc4random() % UInt32(self.additionalSpeedLimit))
+            let moveTheBird = SKAction.repeat(SKAction.moveBy(x: -1 * (CGFloat(birdSpeed) + additionalBirdSpeed), y: 0, duration: 0.2), count: (Int(self.size.width + aBird.size.width * 5)) / birdSpeed)
             let birdSequence = SKAction.sequence([moveTheBird, SKAction.removeFromParent()])
 
             let randomBirdPosY = arc4random() % UInt32(self.size.height * 7 / 8)
