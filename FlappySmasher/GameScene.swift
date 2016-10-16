@@ -13,11 +13,13 @@ class GameScene: SKScene {
 
     //Game Control
     var birdSpeed = 60
+    var additionalSpeedLimit = 30
     var birdControl: Int = 101
     //The percentage of bird spwning
-
+    
     var swordSpeed: CGFloat = 80
     var swordUpdateTime = 0.1
+    var gameScore = 0
 
     //Sounds
     var punchSoundEffect = AVAudioPlayer()
@@ -34,6 +36,7 @@ class GameScene: SKScene {
     var charc = SKSpriteNode()
     var fireLabel = SKLabelNode()
     var shootButton = SKShapeNode()
+    var displayScore = SKLabelNode()
     var backgroundImage = SKSpriteNode()
 
     //Actions
@@ -94,6 +97,13 @@ class GameScene: SKScene {
         self.fireLabel.fontColor = UIColor.red
         self.fireLabel.fontName = "System"
         shootButton.addChild(fireLabel)
+        
+        //Add Score Board
+        self.displayScore.text = "0"
+        self.displayScore.position = CGPoint(x: self.size.width/2, y: self.size.height - 120)
+        self.displayScore.fontSize = 120
+        
+        self.addChild(self.displayScore)
 
         //   ---Sound Effects Setup---
         //Punch sound
@@ -229,7 +239,9 @@ class GameScene: SKScene {
             aBird.yScale = 0.125
 
             let birdFlapWings = SKAction.repeatForever(SKAction.animate(with: [theFirstBirdSkin, theSecondBirdSkin], timePerFrame: 0.1))
-            let moveTheBird = SKAction.repeat(SKAction.moveBy(x: -1 * CGFloat(birdSpeed), y: 0, duration: 0.2), count: (Int(self.size.width + aBird.size.width * 5)) / birdSpeed)
+            
+            let additionalBirdSpeed = CGFloat(arc4random() % UInt32(self.additionalSpeedLimit))
+            let moveTheBird = SKAction.repeat(SKAction.moveBy(x: -1 * (CGFloat(birdSpeed) + additionalBirdSpeed), y: 0, duration: 0.2), count: (Int(self.size.width + aBird.size.width * 5)) / birdSpeed)
             let birdSequence = SKAction.sequence([moveTheBird, SKAction.removeFromParent()])
 
             let randomBirdPosY = arc4random() % UInt32(self.size.height * 7 / 8)
@@ -266,6 +278,11 @@ class GameScene: SKScene {
         self.birdArray.remove(at: Index)
 
         print("Bird array length after remove:" + String(birdArray.count))
+        
+        //Add score
+        self.gameScore = self.gameScore + 1
+        self.displayScore.text = String(self.gameScore)
+        
     }
 
     //Sword Nerfing (Not yet used) -!-
