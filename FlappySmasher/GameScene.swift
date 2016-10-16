@@ -13,6 +13,7 @@ class GameScene: SKScene {
 
     // MARK: Game control
     var birdSpeed = 60
+    var additionalSpeedLimit = 30
     var birdControl: Int = 101
     
     var swordSpeed: CGFloat = 120
@@ -68,6 +69,7 @@ class GameScene: SKScene {
                                                                   width: self.shootButton!.frame.size.width/2,
                                                                   height: self.shootButton!.frame.size.height), cornerRadius: 16).cgPath
         self.fireLabel = self.shootButton?.childNode(withName: "//fireLabel") as? SKLabelNode
+        self.scoreLabel = self.backgroundImage?.childNode(withName: "//scoreLabel") as? SKLabelNode
         
         // Punch sound
         let punchSound = URL(fileURLWithPath: Bundle.main.path(forResource: "punch", ofType: "wav")!)
@@ -182,7 +184,9 @@ class GameScene: SKScene {
             let bird = SKSpriteNode(texture: firstBirdSkin)
             
             let flapWings = SKAction.repeatForever(SKAction.animate(with: [firstBirdSkin, secondBirdSkin], timePerFrame: 0.1))
-            let moveBird = SKAction.repeat(SKAction.moveBy(x: -1 * CGFloat(birdSpeed), y: 0, duration: 0.2),
+            let moveBird = SKAction.repeat(SKAction.moveBy(x: -1 * (CGFloat(birdSpeed) + CGFloat(arc4random() % UInt32(self.additionalSpeedLimit))),
+                                                           y: 0,
+                                                           duration: 0.2),
                                            count: (Int(self.size.width + bird.size.width * 5)) / birdSpeed)
             let birdSequence = SKAction.sequence([moveBird, SKAction.removeFromParent()])
 
@@ -218,6 +222,8 @@ class GameScene: SKScene {
         self.birdArray[index]?.run(birdDeathSequence)
         self.birdArray.remove(at: index)
         
+        // Increment score
         self.gameScore += 1
+        self.scoreLabel?.text = String(self.gameScore)
     }
 }
