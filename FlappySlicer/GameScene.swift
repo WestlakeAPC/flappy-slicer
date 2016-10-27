@@ -190,7 +190,7 @@ class GameScene: SKScene {
                                            count: (Int(self.size.width + bird.size.width * 5)) / birdSpeed)
             let birdSequence = SKAction.sequence([moveBird, SKAction.removeFromParent()])
 
-            let randomBirdPosY = backgroundImage.frame.origin.y + CGFloat(arc4random_uniform(UInt32(backgroundImage.frame.height))) - backgroundImage.frame.height/2
+            let randomBirdPosY = backgroundImage.frame.origin.y + CGFloat(arc4random_uniform(UInt32(backgroundImage.frame.height))) * 3/8 - backgroundImage.frame.height * 3/16
             bird.position = CGPoint(x: (backgroundImage.frame.width) + (bird.frame.width) * 2, y: CGFloat(randomBirdPosY))
             bird.zPosition = 4
             birdArray.append(bird)
