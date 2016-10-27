@@ -46,7 +46,7 @@
 		174340311DA04ADF00BB3CAC /* High Winged Bird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "High Winged Bird.png"; sourceTree = "<group>"; };
 		174340321DA04ADF00BB3CAC /* Low Winged Bird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Low Winged Bird.png"; sourceTree = "<group>"; };
 		73D005141D68EDF0002E0447 /* punch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = punch.wav; sourceTree = "<group>"; };
-		73FB10A21D5C898600ABF217 /* FlappySmasher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlappySmasher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		73FB10A21D5C898600ABF217 /* FlappySlicer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlappySlicer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73FB10A51D5C898600ABF217 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73FB10A71D5C898600ABF217 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		73FB10A91D5C898600ABF217 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -55,10 +55,10 @@
 		73FB10B01D5C898600ABF217 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73FB10B31D5C898600ABF217 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		73FB10B51D5C898600ABF217 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		73FB10BA1D5C898700ABF217 /* FlappySmasherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlappySmasherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		73FB10BA1D5C898700ABF217 /* FlappySlicerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlappySlicerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		73FB10BE1D5C898700ABF217 /* FlappySmasherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappySmasherTests.swift; sourceTree = "<group>"; };
 		73FB10C01D5C898700ABF217 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		73FB10C51D5C898700ABF217 /* FlappySmasherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlappySmasherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		73FB10C51D5C898700ABF217 /* FlappySlicerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlappySlicerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		73FB10C91D5C898700ABF217 /* FlappySmasherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappySmasherUITests.swift; sourceTree = "<group>"; };
 		73FB10CB1D5C898700ABF217 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73FB10D71D5CA83D00ABF217 /* final-charc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "final-charc.png"; sourceTree = "<group>"; };
@@ -94,9 +94,9 @@
 		73FB10991D5C898600ABF217 = {
 			isa = PBXGroup;
 			children = (
-				73FB10A41D5C898600ABF217 /* FlappySmasher */,
-				73FB10BD1D5C898700ABF217 /* FlappySmasherTests */,
-				73FB10C81D5C898700ABF217 /* FlappySmasherUITests */,
+				73FB10A41D5C898600ABF217 /* FlappySlicer */,
+				73FB10BD1D5C898700ABF217 /* FlappySlicerTests */,
+				73FB10C81D5C898700ABF217 /* FlappySlicerUITests */,
 				73FB10A31D5C898600ABF217 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -104,14 +104,14 @@
 		73FB10A31D5C898600ABF217 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				73FB10A21D5C898600ABF217 /* FlappySmasher.app */,
-				73FB10BA1D5C898700ABF217 /* FlappySmasherTests.xctest */,
-				73FB10C51D5C898700ABF217 /* FlappySmasherUITests.xctest */,
+				73FB10A21D5C898600ABF217 /* FlappySlicer.app */,
+				73FB10BA1D5C898700ABF217 /* FlappySlicerTests.xctest */,
+				73FB10C51D5C898700ABF217 /* FlappySlicerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		73FB10A41D5C898600ABF217 /* FlappySmasher */ = {
+		73FB10A41D5C898600ABF217 /* FlappySlicer */ = {
 			isa = PBXGroup;
 			children = (
 				73FB10DB1D5CA85B00ABF217 /* Images&Sound */,
@@ -124,25 +124,25 @@
 				73FB10B21D5C898600ABF217 /* LaunchScreen.storyboard */,
 				73FB10B51D5C898600ABF217 /* Info.plist */,
 			);
-			path = FlappySmasher;
+			path = FlappySlicer;
 			sourceTree = "<group>";
 		};
-		73FB10BD1D5C898700ABF217 /* FlappySmasherTests */ = {
+		73FB10BD1D5C898700ABF217 /* FlappySlicerTests */ = {
 			isa = PBXGroup;
 			children = (
 				73FB10BE1D5C898700ABF217 /* FlappySmasherTests.swift */,
 				73FB10C01D5C898700ABF217 /* Info.plist */,
 			);
-			path = FlappySmasherTests;
+			path = FlappySlicerTests;
 			sourceTree = "<group>";
 		};
-		73FB10C81D5C898700ABF217 /* FlappySmasherUITests */ = {
+		73FB10C81D5C898700ABF217 /* FlappySlicerUITests */ = {
 			isa = PBXGroup;
 			children = (
 				73FB10C91D5C898700ABF217 /* FlappySmasherUITests.swift */,
 				73FB10CB1D5C898700ABF217 /* Info.plist */,
 			);
-			path = FlappySmasherUITests;
+			path = FlappySlicerUITests;
 			sourceTree = "<group>";
 		};
 		73FB10DB1D5CA85B00ABF217 /* Images&Sound */ = {
@@ -162,9 +162,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		73FB10A11D5C898600ABF217 /* FlappySmasher */ = {
+		73FB10A11D5C898600ABF217 /* FlappySlicer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 73FB10CE1D5C898700ABF217 /* Build configuration list for PBXNativeTarget "FlappySmasher" */;
+			buildConfigurationList = 73FB10CE1D5C898700ABF217 /* Build configuration list for PBXNativeTarget "FlappySlicer" */;
 			buildPhases = (
 				73FB109E1D5C898600ABF217 /* Sources */,
 				73FB109F1D5C898600ABF217 /* Frameworks */,
@@ -174,14 +174,14 @@
 			);
 			dependencies = (
 			);
-			name = FlappySmasher;
+			name = FlappySlicer;
 			productName = FlappySmasher;
-			productReference = 73FB10A21D5C898600ABF217 /* FlappySmasher.app */;
+			productReference = 73FB10A21D5C898600ABF217 /* FlappySlicer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		73FB10B91D5C898700ABF217 /* FlappySmasherTests */ = {
+		73FB10B91D5C898700ABF217 /* FlappySlicerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 73FB10D11D5C898700ABF217 /* Build configuration list for PBXNativeTarget "FlappySmasherTests" */;
+			buildConfigurationList = 73FB10D11D5C898700ABF217 /* Build configuration list for PBXNativeTarget "FlappySlicerTests" */;
 			buildPhases = (
 				73FB10B61D5C898700ABF217 /* Sources */,
 				73FB10B71D5C898700ABF217 /* Frameworks */,
@@ -192,14 +192,14 @@
 			dependencies = (
 				73FB10BC1D5C898700ABF217 /* PBXTargetDependency */,
 			);
-			name = FlappySmasherTests;
+			name = FlappySlicerTests;
 			productName = FlappySmasherTests;
-			productReference = 73FB10BA1D5C898700ABF217 /* FlappySmasherTests.xctest */;
+			productReference = 73FB10BA1D5C898700ABF217 /* FlappySlicerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		73FB10C41D5C898700ABF217 /* FlappySmasherUITests */ = {
+		73FB10C41D5C898700ABF217 /* FlappySlicerUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 73FB10D41D5C898700ABF217 /* Build configuration list for PBXNativeTarget "FlappySmasherUITests" */;
+			buildConfigurationList = 73FB10D41D5C898700ABF217 /* Build configuration list for PBXNativeTarget "FlappySlicerUITests" */;
 			buildPhases = (
 				73FB10C11D5C898700ABF217 /* Sources */,
 				73FB10C21D5C898700ABF217 /* Frameworks */,
@@ -210,9 +210,9 @@
 			dependencies = (
 				73FB10C71D5C898700ABF217 /* PBXTargetDependency */,
 			);
-			name = FlappySmasherUITests;
+			name = FlappySlicerUITests;
 			productName = FlappySmasherUITests;
-			productReference = 73FB10C51D5C898700ABF217 /* FlappySmasherUITests.xctest */;
+			productReference = 73FB10C51D5C898700ABF217 /* FlappySlicerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -242,7 +242,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 73FB109D1D5C898600ABF217 /* Build configuration list for PBXProject "FlappySmasher" */;
+			buildConfigurationList = 73FB109D1D5C898600ABF217 /* Build configuration list for PBXProject "FlappySlicer" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -255,9 +255,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				73FB10A11D5C898600ABF217 /* FlappySmasher */,
-				73FB10B91D5C898700ABF217 /* FlappySmasherTests */,
-				73FB10C41D5C898700ABF217 /* FlappySmasherUITests */,
+				73FB10A11D5C898600ABF217 /* FlappySlicer */,
+				73FB10B91D5C898700ABF217 /* FlappySlicerTests */,
+				73FB10C41D5C898700ABF217 /* FlappySlicerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -328,12 +328,12 @@
 /* Begin PBXTargetDependency section */
 		73FB10BC1D5C898700ABF217 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 73FB10A11D5C898600ABF217 /* FlappySmasher */;
+			target = 73FB10A11D5C898600ABF217 /* FlappySlicer */;
 			targetProxy = 73FB10BB1D5C898700ABF217 /* PBXContainerItemProxy */;
 		};
 		73FB10C71D5C898700ABF217 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 73FB10A11D5C898600ABF217 /* FlappySmasher */;
+			target = 73FB10A11D5C898600ABF217 /* FlappySlicer */;
 			targetProxy = 73FB10C61D5C898700ABF217 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -454,7 +454,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = FlappySmasher/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/FlappySlicer/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.animatorjoe.FlappySmasher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -469,7 +469,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = FlappySmasher/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/FlappySlicer/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.animatorjoe.FlappySmasher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -488,7 +488,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.animatorjoe.FlappySmasherTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlappySmasher.app/FlappySmasher";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlappySlicer.app/FlappySlicer";
 			};
 			name = Debug;
 		};
@@ -501,7 +501,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.animatorjoe.FlappySmasherTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlappySmasher.app/FlappySmasher";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlappySlicer.app/FlappySlicer";
 			};
 			name = Release;
 		};
@@ -533,7 +533,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		73FB109D1D5C898600ABF217 /* Build configuration list for PBXProject "FlappySmasher" */ = {
+		73FB109D1D5C898600ABF217 /* Build configuration list for PBXProject "FlappySlicer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				73FB10CC1D5C898700ABF217 /* Debug */,
@@ -542,7 +542,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		73FB10CE1D5C898700ABF217 /* Build configuration list for PBXNativeTarget "FlappySmasher" */ = {
+		73FB10CE1D5C898700ABF217 /* Build configuration list for PBXNativeTarget "FlappySlicer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				73FB10CF1D5C898700ABF217 /* Debug */,
@@ -551,7 +551,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		73FB10D11D5C898700ABF217 /* Build configuration list for PBXNativeTarget "FlappySmasherTests" */ = {
+		73FB10D11D5C898700ABF217 /* Build configuration list for PBXNativeTarget "FlappySlicerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				73FB10D21D5C898700ABF217 /* Debug */,
@@ -560,7 +560,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		73FB10D41D5C898700ABF217 /* Build configuration list for PBXNativeTarget "FlappySmasherUITests" */ = {
+		73FB10D41D5C898700ABF217 /* Build configuration list for PBXNativeTarget "FlappySlicerUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				73FB10D51D5C898700ABF217 /* Debug */,
