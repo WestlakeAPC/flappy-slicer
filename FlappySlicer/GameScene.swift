@@ -152,15 +152,17 @@ class GameScene: SKScene {
                         if let selectedSword = swordsArray[j] {
                             if !(swordsArray.count == 0) && !(birdArray.count == 0) {
                                 if selectedBird.intersects(selectedSword) {
-                                    punchSoundEffect.play()
+                                    if selectedBird.intersects(self) && selectedSword.intersects(self) {
+                                        punchSoundEffect.play()
 
-                                    if (birdRemovalArray.count > 0) {
-                                        // Checks for repeating values
-                                        if !(birdRemovalArray[birdRemovalArray.count - 1] == i) {
+                                        if (birdRemovalArray.count > 0) {
+                                            // Checks for repeating values
+                                            if !(birdRemovalArray[birdRemovalArray.count - 1] == i) {
+                                                birdRemovalArray.append(i)
+                                            }
+                                        } else {
                                             birdRemovalArray.append(i)
                                         }
-                                    } else {
-                                        birdRemovalArray.append(i)
                                     }
                                 }
                             }
