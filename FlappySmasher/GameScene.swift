@@ -231,8 +231,8 @@ class GameScene: SKScene {
         let NewBird = Int(arc4random() % 100)
         if (NewBird <= birdControl) {
 
-            let theFirstBirdSkin = SKTexture(imageNamed: "High Winged Bird.png")
-            let theSecondBirdSkin = SKTexture(imageNamed: "Low Winged Bird.png")
+            let theFirstBirdSkin = SKTexture(imageNamed: "downflappybird.png")
+            let theSecondBirdSkin = SKTexture(imageNamed: "upflappybirdk.png")
             let aBird = SKSpriteNode(texture: theFirstBirdSkin)
             
             aBird.xScale = 0.125

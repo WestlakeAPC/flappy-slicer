@@ -20,8 +20,8 @@
 		73FB10D81D5CA83D00ABF217 /* final-charc.png in Resources */ = {isa = PBXBuildFile; fileRef = 73FB10D71D5CA83D00ABF217 /* final-charc.png */; };
 		73FB10DA1D5CA84A00ABF217 /* the_other_sword.png in Resources */ = {isa = PBXBuildFile; fileRef = 73FB10D91D5CA84A00ABF217 /* the_other_sword.png */; };
 		73FB10DD1D5CA89800ABF217 /* backgroundphoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 73FB10DC1D5CA89800ABF217 /* backgroundphoto.png */; };
-		73FB10E41D5CAA9200ABF217 /* flappy1left.png in Resources */ = {isa = PBXBuildFile; fileRef = 73FB10E21D5CAA9200ABF217 /* flappy1left.png */; };
-		73FB10E51D5CAA9200ABF217 /* flappy2left.png in Resources */ = {isa = PBXBuildFile; fileRef = 73FB10E31D5CAA9200ABF217 /* flappy2left.png */; };
+		73FE27C91DC5379E006EFD55 /* downflappybird.png in Resources */ = {isa = PBXBuildFile; fileRef = 73FE27C71DC5379E006EFD55 /* downflappybird.png */; };
+		73FE27CA1DC5379E006EFD55 /* upflappybird.png in Resources */ = {isa = PBXBuildFile; fileRef = 73FE27C81DC5379E006EFD55 /* upflappybird.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,8 +61,8 @@
 		73FB10D71D5CA83D00ABF217 /* final-charc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "final-charc.png"; sourceTree = "<group>"; };
 		73FB10D91D5CA84A00ABF217 /* the_other_sword.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = the_other_sword.png; sourceTree = "<group>"; };
 		73FB10DC1D5CA89800ABF217 /* backgroundphoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundphoto.png; sourceTree = "<group>"; };
-		73FB10E21D5CAA9200ABF217 /* flappy1left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flappy1left.png; sourceTree = "<group>"; };
-		73FB10E31D5CAA9200ABF217 /* flappy2left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flappy2left.png; sourceTree = "<group>"; };
+		73FE27C71DC5379E006EFD55 /* downflappybird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downflappybird.png; sourceTree = "<group>"; };
+		73FE27C81DC5379E006EFD55 /* upflappybird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upflappybird.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,8 +149,8 @@
 			children = (
 				73FB10DC1D5CA89800ABF217 /* backgroundphoto.png */,
 				73FB10D71D5CA83D00ABF217 /* final-charc.png */,
-				73FB10E21D5CAA9200ABF217 /* flappy1left.png */,
-				73FB10E31D5CAA9200ABF217 /* flappy2left.png */,
+				73FE27C71DC5379E006EFD55 /* downflappybird.png */,
+				73FE27C81DC5379E006EFD55 /* upflappybird.png */,
 				73FB10D91D5CA84A00ABF217 /* the_other_sword.png */,
 				73D005141D68EDF0002E0447 /* punch.wav */,
 			);
@@ -268,13 +268,13 @@
 				73FB10A81D5C898600ABF217 /* GameScene.sks in Resources */,
 				73D005151D68EDF0002E0447 /* punch.wav in Resources */,
 				73FB10B41D5C898600ABF217 /* LaunchScreen.storyboard in Resources */,
-				73FB10E41D5CAA9200ABF217 /* flappy1left.png in Resources */,
 				73FB10DA1D5CA84A00ABF217 /* the_other_sword.png in Resources */,
+				73FE27CA1DC5379E006EFD55 /* upflappybird.png in Resources */,
 				73FB10B11D5C898600ABF217 /* Assets.xcassets in Resources */,
 				73FB10DD1D5CA89800ABF217 /* backgroundphoto.png in Resources */,
 				73FB10AF1D5C898600ABF217 /* Main.storyboard in Resources */,
 				73FB10D81D5CA83D00ABF217 /* final-charc.png in Resources */,
-				73FB10E51D5CAA9200ABF217 /* flappy2left.png in Resources */,
+				73FE27C91DC5379E006EFD55 /* downflappybird.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
