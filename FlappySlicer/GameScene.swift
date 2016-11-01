@@ -152,15 +152,17 @@ class GameScene: SKScene {
                         if let selectedSword = swordsArray[j] {
                             if !(swordsArray.count == 0) && !(birdArray.count == 0) {
                                 if selectedBird.intersects(selectedSword) {
-                                    punchSoundEffect.play()
+                                    if selectedBird.intersects(self) && selectedSword.intersects(self) {
+                                        punchSoundEffect.play()
 
-                                    if (birdRemovalArray.count > 0) {
-                                        // Checks for repeating values
-                                        if !(birdRemovalArray[birdRemovalArray.count - 1] == i) {
+                                        if (birdRemovalArray.count > 0) {
+                                            // Checks for repeating values
+                                            if !(birdRemovalArray[birdRemovalArray.count - 1] == i) {
+                                                birdRemovalArray.append(i)
+                                            }
+                                        } else {
                                             birdRemovalArray.append(i)
                                         }
-                                    } else {
-                                        birdRemovalArray.append(i)
                                     }
                                 }
                             }
@@ -191,7 +193,7 @@ class GameScene: SKScene {
             let birdSequence = SKAction.sequence([moveBird, SKAction.removeFromParent()])
 
             let randomBirdPosY = backgroundImage.frame.origin.y + CGFloat(arc4random_uniform(UInt32(backgroundImage.frame.height))) * 3/8 - backgroundImage.frame.height * 3/16
-            bird.position = CGPoint(x: (backgroundImage.frame.width) + (bird.frame.width) * 2, y: CGFloat(randomBirdPosY))
+            bird.position = CGPoint(x: (backgroundImage.frame.origin.x) + (backgroundImage.frame.width)/2 + (bird.frame.width) * 2, y: CGFloat(randomBirdPosY))
             bird.zPosition = 4
             birdArray.append(bird)
 
