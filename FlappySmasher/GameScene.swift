@@ -27,6 +27,7 @@ class GameScene: SKScene {
     //Varibles
     var buttonTapped = false
     var reportTaps = false
+    var death = false
 
     //Array
     var swordsArray = [SKSpriteNode?](repeating: nil, count: 0)
@@ -59,7 +60,7 @@ class GameScene: SKScene {
         self.size.width = UIScreen.main.bounds.width * 2
         self.size.height = UIScreen.main.bounds.height * 2
 
-        //   ---Graphics Initialization---
+        //MARK:   ---Graphics Initialization---
         //Background Image
         let backgroundPhoto = SKTexture(imageNamed: "backgroundphoto.png")
         backgroundImage = SKSpriteNode(texture: backgroundPhoto)
@@ -119,7 +120,7 @@ class GameScene: SKScene {
 
     }
 
-    //When the screen is tapped    //Used to report tapped coordinates
+    //When the screen is tapped    //MARK: Report tapped coordinates
     override func touchesBegan(_ touches:Set<UITouch>, with event:UIEvent?) {
         /* Called when a touch begins */
 
@@ -131,14 +132,14 @@ class GameScene: SKScene {
         }
     }
 
-    //When screen tapped is lifted    //Triggers moveCharc and fireSwords
+    //When screen tapped is lifted    //MARK: Moves charc and fireSwords
     override func touchesEnded(_ touches:Set<UITouch>, with event:UIEvent?) {
         buttonTapped = false
 
         for touch in touches {
 
             for i in self.nodes(at: touch.location(in: self)) {
-                if i.name == "Fire!" {
+                if i.name == "Fire!" && !death {
                     buttonTapped = true
                     fireSwords(charcLocation: self.charc.position)
                 }
@@ -147,26 +148,28 @@ class GameScene: SKScene {
         }
     }
 
-    //Move the charc
+    //MARK: Move the charc
     func moveCharc(UserInput touch :UITouch) {
-        if (touch.location(in: self).y > self.frame.size.height / 2) {
-            if (!buttonTapped) {
-                if !(self.charc.position.y + self.charc.size.height / 2 >= self.size.height) {
-                    self.charc.run(self.moveUp)
+        if(!death){
+            if (touch.location(in: self).y > self.frame.size.height / 2) {
+                if (!buttonTapped) {
+                    if !(self.charc.position.y + self.charc.size.height / 2 >= self.size.height) {
+                        self.charc.run(self.moveUp)
+                    }
                 }
-            }
-        } else if (touch.location(in: self).y <= self.frame.size.height / 2) {
-            if (!buttonTapped) {
-                if !(self.charc.position.y - self.charc.size.height / 2 <= 0) {
-                    self.charc.run(self.moveDown)
+            } else if (touch.location(in: self).y <= self.frame.size.height / 2) {
+                if (!buttonTapped) {
+                    if !(self.charc.position.y - self.charc.size.height / 2 <= 0) {
+                        self.charc.run(self.moveDown)
+                    }
                 }
+            } else {
+                print("T_T")
             }
-        } else {
-            print("T_T")
         }
     }
 
-    //Fire Swords
+    //MARK: Fire Swords
     func fireSwords(charcLocation charcPos:CGPoint) {
 
         let theSwordLook = SKTexture(imageNamed: "the_other_sword.png")
@@ -184,12 +187,12 @@ class GameScene: SKScene {
 
     }
 
-    //Updates before each frame renders    //Used to add birds and detect collision
+    //Updates before each frame renders    //MARK:U Add birds and detect collision
     override func update(_ currentTime:TimeInterval) {
         //The array for  birds that were hit
         var birdRemovalArray = [Int?](repeating: nil, count: 0)
 
-        //Collision Check
+        //MARK: Collision Check
         if (birdArray.count >= 1 && swordsArray.count >= 1) {
             for i in 0 ... birdArray.count - 1 {
                 for j in 0 ... swordsArray.count - 1 {
@@ -200,8 +203,6 @@ class GameScene: SKScene {
                         if ((selectedBird?.intersects(selectedSword!))! == true) {
 
                             punchSoundEffect.play()
-
-                            //print("Bird array length before collision:" + String(birdArray.count))
 
                             if (birdRemovalArray.count > 0) {
                                 //Checks for repeating valuse
@@ -217,7 +218,7 @@ class GameScene: SKScene {
             }
         }
 
-        //Remove birds from array
+        //MARK: Remove birds from array
         if !(birdRemovalArray.count == 0) {
             for k in 0 ... birdRemovalArray.count - 1 {
                 //print("Inside for loop.")
@@ -227,12 +228,12 @@ class GameScene: SKScene {
             }
         }
 
-        //Send Birds
+        //MARK: Send Birds
         let NewBird = Int(arc4random() % 100)
-        if (NewBird <= birdControl) {
+        if (NewBird <= birdControl && !death) {
 
             let theFirstBirdSkin = SKTexture(imageNamed: "downflappybird.png")
-            let theSecondBirdSkin = SKTexture(imageNamed: "upflappybirdk.png")
+            let theSecondBirdSkin = SKTexture(imageNamed: "upflappybird.png")
             let aBird = SKSpriteNode(texture: theFirstBirdSkin)
             
             aBird.xScale = 0.125
@@ -257,17 +258,18 @@ class GameScene: SKScene {
         }
     }
 
-    //Remove first bird
+    //MARK: Remove first bird
     func removeFirstBirdFromArray() -> Void {
         birdArray.remove(at: 0)
+        self.death = true
     }
 
-    //Remove first sword
+    //MARK: Remove first sword
     func removeFirstSwordFromArray() -> Void {
         swordsArray.remove(at: 0)
     }
 
-    //Kill the bird that was hit
+    //MARK: Kill the bird that was hit
     func KillSelectedBirdFromArray(selectedBirdIndex Index:Int) -> Void {
         print("Bird array length before remove:" + String(birdArray.count))
         print("Selected bird index:" + String(Index))
