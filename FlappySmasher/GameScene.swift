@@ -37,6 +37,7 @@ class GameScene: SKScene {
     var charc = SKSpriteNode()
     var fireLabel = SKLabelNode()
     var shootButton = SKShapeNode()
+    var deathlogScreen = SKShapeNode()
     var displayScore = SKLabelNode()
     var backgroundImage = SKSpriteNode()
 
@@ -103,8 +104,11 @@ class GameScene: SKScene {
         self.displayScore.text = "0"
         self.displayScore.position = CGPoint(x: self.size.width/2, y: self.size.height - 120)
         self.displayScore.fontSize = 120
-        
         self.addChild(self.displayScore)
+        
+        //Death Log
+        self.deathlogScreen.path = UIBezierPath(roundedRect: CGRect(x: self.frame.width, y: self.frame.height * 7/8, width: 250, height: 100), cornerRadius: 32).cgPath
+        self.deathlogScreen.position = CGPoint(x: self.frame.width/2 - self.deathlogScreen.frame.width/2, y: 0)
 
         //   ---Sound Effects Setup---
         //Punch sound
