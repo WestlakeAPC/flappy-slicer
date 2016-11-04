@@ -246,7 +246,7 @@ class GameScene: SKScene {
             let birdFlapWings = SKAction.repeatForever(SKAction.animate(with: [theFirstBirdSkin, theSecondBirdSkin], timePerFrame: 0.1))
             
             let additionalBirdSpeed = CGFloat(arc4random() % UInt32(self.additionalSpeedLimit))
-            let moveTheBird = SKAction.repeat(SKAction.moveBy(x: -1 * (CGFloat(birdSpeed) + additionalBirdSpeed), y: 0, duration: 0.2), count: (Int(self.size.width + aBird.size.width * 5)) / birdSpeed)
+            let moveTheBird = SKAction.repeat(SKAction.moveBy(x: -1 * (CGFloat(birdSpeed) + additionalBirdSpeed), y: 0, duration: 0.2), count: (Int(self.size.width + aBird.size.width * 2)) / birdSpeed)
             let birdSequence = SKAction.sequence([moveTheBird, SKAction.removeFromParent()])
 
             let randomBirdPosY = arc4random() % UInt32(self.size.height * 7 / 8)
@@ -286,9 +286,10 @@ class GameScene: SKScene {
         print("Bird array length after remove:" + String(birdArray.count))
         
         //Add score
-        self.gameScore = self.gameScore + 1
-        self.displayScore.text = String(self.gameScore)
-        
+        if(!death){
+            self.gameScore = self.gameScore + 1
+            self.displayScore.text = String(self.gameScore)
+        }
     }
 
     //Sword Nerfing (Not yet used) -!-
