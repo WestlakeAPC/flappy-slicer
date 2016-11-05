@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7324A9421DCE925D00CCEBC0 /* fireButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7324A9411DCE925D00CCEBC0 /* fireButton.png */; };
 		73D005151D68EDF0002E0447 /* punch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 73D005141D68EDF0002E0447 /* punch.wav */; };
 		73FB10A61D5C898600ABF217 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FB10A51D5C898600ABF217 /* AppDelegate.swift */; };
 		73FB10A81D5C898600ABF217 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 73FB10A71D5C898600ABF217 /* GameScene.sks */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7324A9411DCE925D00CCEBC0 /* fireButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fireButton.png; sourceTree = "<group>"; };
 		73D005141D68EDF0002E0447 /* punch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = punch.wav; sourceTree = "<group>"; };
 		73FB10A21D5C898600ABF217 /* FlappySmasher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlappySmasher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73FB10A51D5C898600ABF217 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				73FB10DC1D5CA89800ABF217 /* backgroundphoto.png */,
 				73FB10D71D5CA83D00ABF217 /* final-charc.png */,
 				73FE27C71DC5379E006EFD55 /* downflappybird.png */,
+				7324A9411DCE925D00CCEBC0 /* fireButton.png */,
 				73FE27C81DC5379E006EFD55 /* upflappybird.png */,
 				73FB10D91D5CA84A00ABF217 /* the_other_sword.png */,
 				73D005141D68EDF0002E0447 /* punch.wav */,
@@ -270,6 +273,7 @@
 				73FB10B41D5C898600ABF217 /* LaunchScreen.storyboard in Resources */,
 				73FB10DA1D5CA84A00ABF217 /* the_other_sword.png in Resources */,
 				73FE27CA1DC5379E006EFD55 /* upflappybird.png in Resources */,
+				7324A9421DCE925D00CCEBC0 /* fireButton.png in Resources */,
 				73FB10B11D5C898600ABF217 /* Assets.xcassets in Resources */,
 				73FB10DD1D5CA89800ABF217 /* backgroundphoto.png in Resources */,
 				73FB10AF1D5C898600ABF217 /* Main.storyboard in Resources */,

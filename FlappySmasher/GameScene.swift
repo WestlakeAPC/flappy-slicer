@@ -35,11 +35,14 @@ class GameScene: SKScene {
 
     //Sprites
     var charc = SKSpriteNode()
-    var fireLabel = SKLabelNode()
-    var shootButton = SKShapeNode()
+    var shootButton = SKSpriteNode()
     var deathlogScreen = SKShapeNode()
-    var displayScore = SKLabelNode()
     var backgroundImage = SKSpriteNode()
+    
+    var displayScore = SKLabelNode()
+    var deathMessage = SKLabelNode()
+    var restartButton = SKLabelNode()
+    var deathScoreReport = SKLabelNode()
 
     //Actions
     var moveUp = SKAction.moveBy(x: 0, y: 120, duration: 0.3)
@@ -84,21 +87,13 @@ class GameScene: SKScene {
         self.addChild(charc)
 
         //Shoot Button
-        self.shootButton.path = UIBezierPath(roundedRect: CGRect(x: -125, y: -50, width: 250, height: 100), cornerRadius: 32).cgPath
-        self.shootButton.position = CGPoint(x: self.size.width * 13 / 16, y: self.size.height * 1 / 4)
+        self.shootButton = SKSpriteNode(texture: SKTexture(imageNamed: "fireButton"))
+        self.shootButton.position = CGPoint(x: self.size.width * 14 / 16, y: self.size.height * 1 / 4)
         self.shootButton.zPosition = 2
-        self.shootButton.fillColor = UIColor.white
+        self.shootButton.xScale = 0.35
+        self.shootButton.yScale = 0.35
         self.shootButton.name = "Fire!"
         self.addChild(shootButton)
-
-        //Fire Label
-        self.fireLabel.text = "Fire!"
-        self.fireLabel.position = CGPoint(x: 0, y: -10)
-        self.fireLabel.zPosition = 0
-        self.fireLabel.fontSize = 40
-        self.fireLabel.fontColor = UIColor.red
-        self.fireLabel.fontName = "System"
-        shootButton.addChild(fireLabel)
         
         //Add Score Board
         self.displayScore.text = "0"
@@ -107,10 +102,34 @@ class GameScene: SKScene {
         self.addChild(self.displayScore)
         
         //Death Log
-        self.deathlogScreen.path = UIBezierPath(roundedRect: CGRect(x: self.frame.width, y: self.frame.height * 7/8, width: 250, height: 100), cornerRadius: 32).cgPath
-        self.deathlogScreen.position = CGPoint(x: self.frame.width/2 - self.deathlogScreen.frame.width/2, y: 0)
+        self.deathlogScreen.path = UIBezierPath(roundedRect: CGRect(x: -self.size.width/6, y: -self.size.height/4, width: self.size.width/3, height: self.size.height/2), cornerRadius: 32).cgPath
+        self.deathlogScreen.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
+        self.deathlogScreen.zPosition = 5
+        self.deathlogScreen.fillColor = UIColor.white
+        self.deathlogScreen.strokeColor = UIColor.black
+        self.deathlogScreen.name = "death log"
+        self.deathlogScreen.isHidden = true
+        self.addChild(deathlogScreen)
+        
+        self.deathMessage.text = "You Failed"
+        self.deathMessage.position = CGPoint(x: 0, y: self.size.height/(4 * 3))
+        self.deathMessage.fontSize = 70
+        self.deathMessage.fontColor = UIColor.black
+        deathlogScreen.addChild(deathMessage)
+        
+        self.deathScoreReport.text = "You Scored"
+        self.deathScoreReport.position = CGPoint(x: 0, y: -self.size.height/(4 * 4))
+        self.deathScoreReport.fontSize = 40
+        self.deathScoreReport.fontColor = UIColor.black
+        deathlogScreen.addChild(deathScoreReport)
+        
+        self.restartButton.text = "Tap to Restart"
+        self.restartButton.position = CGPoint(x: 0, y: -self.size.height/(4 * 3/2))
+        self.restartButton.fontSize = 40
+        self.restartButton.fontColor = UIColor.black
+        deathlogScreen.addChild(restartButton)
 
-        //   ---Sound Effects Setup---
+        //MARK:   ---Sound Effects Setup---
         //Punch sound
         //Sword Sound
         let punchSound = URL(fileURLWithPath: Bundle.main.path(forResource: "punch", ofType: "wav")!)
@@ -246,7 +265,7 @@ class GameScene: SKScene {
             let birdFlapWings = SKAction.repeatForever(SKAction.animate(with: [theFirstBirdSkin, theSecondBirdSkin], timePerFrame: 0.1))
             
             let additionalBirdSpeed = CGFloat(arc4random() % UInt32(self.additionalSpeedLimit))
-            let moveTheBird = SKAction.repeat(SKAction.moveBy(x: -1 * (CGFloat(birdSpeed) + additionalBirdSpeed), y: 0, duration: 0.2), count: (Int(self.size.width + aBird.size.width * 2)) / birdSpeed)
+            let moveTheBird = SKAction.repeat(SKAction.moveBy(x: -1 * (CGFloat(birdSpeed) + additionalBirdSpeed), y: 0, duration: 0.2), count: (Int(self.size.width + aBird.size.width * 1)) / birdSpeed)
             let birdSequence = SKAction.sequence([moveTheBird, SKAction.removeFromParent()])
 
             let randomBirdPosY = arc4random() % UInt32(self.size.height * 7 / 8)
@@ -265,7 +284,7 @@ class GameScene: SKScene {
     //MARK: Remove first bird
     func removeFirstBirdFromArray() -> Void {
         birdArray.remove(at: 0)
-        self.death = true
+        playerDidDie()
     }
 
     //MARK: Remove first sword
@@ -285,16 +304,27 @@ class GameScene: SKScene {
 
         print("Bird array length after remove:" + String(birdArray.count))
         
-        //Add score
+        //Add Score
         if(!death){
             self.gameScore = self.gameScore + 1
             self.displayScore.text = String(self.gameScore)
         }
     }
 
-    //Sword Nerfing (Not yet used) -!-
-    func swordCollision(theSword targetSword:SKSpriteNode) -> Void {
-        targetSword.run(SKAction.removeFromParent())
+    //MARK: Death Function
+    
+    func playerDidDie() -> Void {
+        
+        self.deathScoreReport.text = String(gameScore) + " Bird Kills"
+        
+        if(!death){
+            self.deathlogScreen.isHidden = false
+            self.deathlogScreen.xScale = 0.1
+            self.deathlogScreen.yScale = 0.1
+            self.deathlogScreen.run(SKAction.scale(by: 10, duration: 1))
+        }
+            
+        self.death = true
+        
     }
-
 }
