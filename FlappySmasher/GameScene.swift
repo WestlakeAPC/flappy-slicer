@@ -14,7 +14,7 @@ class GameScene: SKScene {
     //Game Control
     var birdSpeed = 60
     var additionalSpeedLimit = 30
-    var birdControl: Int = 101
+    var birdControl: Int = 2
     //The percentage of bird spwning
     
     var swordSpeed: CGFloat = 80
@@ -23,8 +23,10 @@ class GameScene: SKScene {
 
     //Sounds
     var punchSoundEffect = AVAudioPlayer()
+    var gunSoundEffect = AVAudioPlayer()
 
     //Varibles
+    var childFriendly = false
     var buttonTapped = false
     var reportTaps = false
     var death = false
@@ -43,6 +45,8 @@ class GameScene: SKScene {
     var deathMessage = SKLabelNode()
     var restartButton = SKLabelNode()
     var deathScoreReport = SKLabelNode()
+    
+    var charcLook = SKTexture()
 
     //Actions
     var moveUp = SKAction.moveBy(x: 0, y: 120, duration: 0.3)
@@ -66,7 +70,7 @@ class GameScene: SKScene {
 
         //MARK:   ---Graphics Initialization---
         //Background Image
-        let backgroundPhoto = SKTexture(imageNamed: "backgroundphoto.png")
+        let backgroundPhoto = SKTexture(imageNamed: "CastleBackground.png")
         backgroundImage = SKSpriteNode(texture: backgroundPhoto)
         backgroundImage.size.height = self.size.height
         backgroundImage.size.width = self.size.height * 900 / 504
@@ -75,7 +79,8 @@ class GameScene: SKScene {
         self.addChild(backgroundImage)
 
         //Jim Charc
-        let charcLook = SKTexture(imageNamed: "final-charc.png")
+        if (childFriendly) {self.charcLook = SKTexture(imageNamed: "final-charc.png")}
+        if (!childFriendly) {self.charcLook = SKTexture(imageNamed: "JimCharc")}
         self.charc = SKSpriteNode(texture: charcLook)
         charc.name = "Bro"
         charc.position = CGPoint(x: self.frame.size.width / 10, y: self.frame.size.height / 2)
@@ -88,7 +93,7 @@ class GameScene: SKScene {
 
         //Shoot Button
         self.shootButton = SKSpriteNode(texture: SKTexture(imageNamed: "fireButton"))
-        self.shootButton.position = CGPoint(x: self.size.width * 14 / 16, y: self.size.height * 1 / 4)
+        self.shootButton.position = CGPoint(x: self.size.width * 13 / 16, y: self.size.height * 1 / 4)
         self.shootButton.zPosition = 2
         self.shootButton.xScale = 0.35
         self.shootButton.yScale = 0.35
@@ -136,6 +141,11 @@ class GameScene: SKScene {
         punchSoundEffect = try! AVAudioPlayer.init(contentsOf: punchSound)
         punchSoundEffect.prepareToPlay()
         punchSoundEffect.numberOfLoops = 0
+        
+        let gunSound = URL(fileURLWithPath: Bundle.main.path(forResource: "GunShot", ofType: "mp3")!)
+        gunSoundEffect = try! AVAudioPlayer.init(contentsOf: gunSound)
+        gunSoundEffect.prepareToPlay()
+        gunSoundEffect.numberOfLoops = 0
 
         //Screen Boarder
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
@@ -155,7 +165,7 @@ class GameScene: SKScene {
         }
     }
 
-    //When screen tapped is lifted    //MARK: Moves charc and fireSwords
+    //When screen tapped is lifted    //MARK: Moves charc, fireSwords and enable restart
     override func touchesEnded(_ touches:Set<UITouch>, with event:UIEvent?) {
         buttonTapped = false
 
@@ -166,6 +176,12 @@ class GameScene: SKScene {
                     buttonTapped = true
                     fireSwords(charcLocation: self.charc.position)
                 }
+                
+                //MARK: Restart
+                if death && birdArray.count == 0 && i.name == "death log"{
+                    reinitGame()
+                }
+                
             }
             moveCharc(UserInput: touch)
         }
@@ -196,11 +212,23 @@ class GameScene: SKScene {
     func fireSwords(charcLocation charcPos:CGPoint) {
 
         let theSwordLook = SKTexture(imageNamed: "the_other_sword.png")
-        let aSword = SKSpriteNode(texture: theSwordLook)
-        aSword.position = CGPoint(x: charcPos.x + 40, y: charcPos.y - 25)
+        let theBullet = SKTexture(imageNamed: "Bullet.png")
+        var aSword = SKSpriteNode()
+        
+        if (childFriendly){
+            aSword = SKSpriteNode(texture: theSwordLook)
+            aSword.position = CGPoint(x: charcPos.x + 40, y: charcPos.y - 25)
+            aSword.xScale = 0.5
+            aSword.yScale = 0.5
+        }
+        else if (!childFriendly){
+            aSword = SKSpriteNode(texture: theBullet)
+            aSword.position = CGPoint(x: charcPos.x + 40, y: charcPos.y - 8)
+            gunSoundEffect.currentTime = 0.005
+            gunSoundEffect.play()
+        }
+        
         aSword.zPosition = 3
-        aSword.xScale = 0.5
-        aSword.yScale = 0.5
         swordsArray.append(aSword)
 
         let moveSword = SKAction.repeat(SKAction.moveBy(x: swordSpeed, y: 0, duration: swordUpdateTime), count: Int(self.size.width / swordSpeed))
@@ -210,7 +238,7 @@ class GameScene: SKScene {
 
     }
 
-    //Updates before each frame renders    //MARK:U Add birds and detect collision
+    //Updates before each frame renders    //MARK: Add birds and detect collision
     override func update(_ currentTime:TimeInterval) {
         //The array for  birds that were hit
         var birdRemovalArray = [Int?](repeating: nil, count: 0)
@@ -225,7 +253,7 @@ class GameScene: SKScene {
                     if ((!(selectedBird == nil) && !(selectedSword == nil)) && (!(swordsArray.count == 0) && !(birdArray.count == 0))) {
                         if ((selectedBird?.intersects(selectedSword!))! == true) {
 
-                            punchSoundEffect.play()
+                            if (childFriendly) {punchSoundEffect.play()}
 
                             if (birdRemovalArray.count > 0) {
                                 //Checks for repeating valuse
@@ -268,8 +296,8 @@ class GameScene: SKScene {
             let moveTheBird = SKAction.repeat(SKAction.moveBy(x: -1 * (CGFloat(birdSpeed) + additionalBirdSpeed), y: 0, duration: 0.2), count: (Int(self.size.width + aBird.size.width * 1)) / birdSpeed)
             let birdSequence = SKAction.sequence([moveTheBird, SKAction.removeFromParent()])
 
-            let randomBirdPosY = arc4random() % UInt32(self.size.height * 7 / 8)
-            aBird.position = CGPoint(x: self.size.width + (aBird.size.width) * 2, y: CGFloat(randomBirdPosY))
+            let randomBirdPosY = CGFloat((arc4random_uniform(UInt32(self.size.height * 5 / 8))) + UInt32(self.size.height * 1 / 4))
+            aBird.position = CGPoint(x: self.size.width + (aBird.size.width) * 2, y: randomBirdPosY)
             aBird.zPosition = 4
             birdArray.append(aBird)
             print("Bird array length:" + String(birdArray.count))
@@ -304,15 +332,21 @@ class GameScene: SKScene {
 
         print("Bird array length after remove:" + String(birdArray.count))
         
-        //Add Score
+        //MARK: Add Score
         if(!death){
             self.gameScore = self.gameScore + 1
             self.displayScore.text = String(self.gameScore)
         }
+        
+        //MARK: Difficulty
+        if(gameScore % 10 == 0 && birdControl <= 100){
+            birdControl += 5
+        }
+
+        
     }
 
     //MARK: Death Function
-    
     func playerDidDie() -> Void {
         
         self.deathScoreReport.text = String(gameScore) + " Bird Kills"
@@ -321,10 +355,21 @@ class GameScene: SKScene {
             self.deathlogScreen.isHidden = false
             self.deathlogScreen.xScale = 0.1
             self.deathlogScreen.yScale = 0.1
-            self.deathlogScreen.run(SKAction.scale(by: 10, duration: 1))
+            self.deathlogScreen.run(SKAction.scale(by: 10, duration: 3))
         }
             
         self.death = true
         
+    }
+    
+    //MARK: Reinitialize
+    func reinitGame() -> Void {
+        death = false
+        buttonTapped = true
+        gameScore = 0
+        displayScore.text = "0"
+        birdControl = 1
+        charc.position = CGPoint(x: self.frame.size.width / 10, y: self.frame.size.height / 2)
+        self.deathlogScreen.run(SKAction.scale(by: 0, duration: 0.5))
     }
 }

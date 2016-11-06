@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		7324A9421DCE925D00CCEBC0 /* fireButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7324A9411DCE925D00CCEBC0 /* fireButton.png */; };
 		73D005151D68EDF0002E0447 /* punch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 73D005141D68EDF0002E0447 /* punch.wav */; };
+		73E71D5C1DCED4A6001E0E50 /* Bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 73E71D5A1DCED4A6001E0E50 /* Bullet.png */; };
+		73E71D5D1DCED4A6001E0E50 /* JimCharc.png in Resources */ = {isa = PBXBuildFile; fileRef = 73E71D5B1DCED4A6001E0E50 /* JimCharc.png */; };
+		73E71D611DCED9DD001E0E50 /* DesertEagleShot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 73E71D601DCED9DD001E0E50 /* DesertEagleShot.mp3 */; };
+		73E71D631DCEDC3D001E0E50 /* GunShot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 73E71D621DCEDC3D001E0E50 /* GunShot.mp3 */; };
+		73E71D651DCEE7BF001E0E50 /* CastleBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 73E71D641DCEE7BF001E0E50 /* CastleBackground.png */; };
 		73FB10A61D5C898600ABF217 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FB10A51D5C898600ABF217 /* AppDelegate.swift */; };
 		73FB10A81D5C898600ABF217 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 73FB10A71D5C898600ABF217 /* GameScene.sks */; };
 		73FB10AA1D5C898600ABF217 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FB10A91D5C898600ABF217 /* GameScene.swift */; };
@@ -45,6 +50,11 @@
 /* Begin PBXFileReference section */
 		7324A9411DCE925D00CCEBC0 /* fireButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fireButton.png; sourceTree = "<group>"; };
 		73D005141D68EDF0002E0447 /* punch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = punch.wav; sourceTree = "<group>"; };
+		73E71D5A1DCED4A6001E0E50 /* Bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bullet.png; sourceTree = "<group>"; };
+		73E71D5B1DCED4A6001E0E50 /* JimCharc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = JimCharc.png; sourceTree = "<group>"; };
+		73E71D601DCED9DD001E0E50 /* DesertEagleShot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = DesertEagleShot.mp3; sourceTree = "<group>"; };
+		73E71D621DCEDC3D001E0E50 /* GunShot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = GunShot.mp3; sourceTree = "<group>"; };
+		73E71D641DCEE7BF001E0E50 /* CastleBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CastleBackground.png; sourceTree = "<group>"; };
 		73FB10A21D5C898600ABF217 /* FlappySmasher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlappySmasher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73FB10A51D5C898600ABF217 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73FB10A71D5C898600ABF217 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -149,13 +159,18 @@
 		73FB10DB1D5CA85B00ABF217 /* Images&Sound */ = {
 			isa = PBXGroup;
 			children = (
+				73E71D5A1DCED4A6001E0E50 /* Bullet.png */,
+				73E71D641DCEE7BF001E0E50 /* CastleBackground.png */,
+				73E71D5B1DCED4A6001E0E50 /* JimCharc.png */,
 				73FB10DC1D5CA89800ABF217 /* backgroundphoto.png */,
 				73FB10D71D5CA83D00ABF217 /* final-charc.png */,
 				73FE27C71DC5379E006EFD55 /* downflappybird.png */,
 				7324A9411DCE925D00CCEBC0 /* fireButton.png */,
 				73FE27C81DC5379E006EFD55 /* upflappybird.png */,
 				73FB10D91D5CA84A00ABF217 /* the_other_sword.png */,
+				73E71D601DCED9DD001E0E50 /* DesertEagleShot.mp3 */,
 				73D005141D68EDF0002E0447 /* punch.wav */,
+				73E71D621DCEDC3D001E0E50 /* GunShot.mp3 */,
 			);
 			name = "Images&Sound";
 			sourceTree = "<group>";
@@ -268,7 +283,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73E71D631DCEDC3D001E0E50 /* GunShot.mp3 in Resources */,
+				73E71D5D1DCED4A6001E0E50 /* JimCharc.png in Resources */,
 				73FB10A81D5C898600ABF217 /* GameScene.sks in Resources */,
+				73E71D651DCEE7BF001E0E50 /* CastleBackground.png in Resources */,
+				73E71D5C1DCED4A6001E0E50 /* Bullet.png in Resources */,
 				73D005151D68EDF0002E0447 /* punch.wav in Resources */,
 				73FB10B41D5C898600ABF217 /* LaunchScreen.storyboard in Resources */,
 				73FB10DA1D5CA84A00ABF217 /* the_other_sword.png in Resources */,
@@ -279,6 +298,7 @@
 				73FB10AF1D5C898600ABF217 /* Main.storyboard in Resources */,
 				73FB10D81D5CA83D00ABF217 /* final-charc.png in Resources */,
 				73FE27C91DC5379E006EFD55 /* downflappybird.png in Resources */,
+				73E71D611DCED9DD001E0E50 /* DesertEagleShot.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,7 +477,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FlappySmasher/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.animatorjoe.FlappySmasher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -473,7 +493,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FlappySmasher/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.animatorjoe.FlappySmasher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
